@@ -1,4 +1,4 @@
-<mat-card class="lecture">
+<mat-card class="lecture" (click)="goToLecturePage()">
     <mat-card-header>
         <mat-card-title>{{ lecture.title }}</mat-card-title>
         <mat-card-subtitle>
@@ -6,6 +6,7 @@
                 <span class="d-flex" style="justify-content: center; align-items: center">
                     <mat-icon
                         fontIcon="timer"
+                        matTooltip="durée"
                         aria-hidden="false"
                         aria-label="Durée"
                         style="font-size: 1.2em; display: flex; justify-content: center; align-items: center"
@@ -16,7 +17,8 @@
                 </span>
                 <span class="d-flex" style="justify-content: center; align-items: center">
                     <mat-icon
-                        fontIcon="local_fire_department"
+                        matTooltip="difficulté"
+                        fontIcon="trending_up"
                         aria-hidden="false"
                         aria-label="Durée"
                         style="font-size: 1.2em; display: flex; justify-content: center; align-items: center"
@@ -28,4 +30,13 @@
             </div>
         </mat-card-subtitle>
     </mat-card-header>
+    <mat-card-content>
+        <p>
+            {{ lecture.description }}
+        </p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-icon *ngFor="let r of rating" matTooltip="rating" fontIcon="star" aria-hidden="false" aria-label="rating"></mat-icon>
+        {{ lecture.rating }}
+    </mat-card-actions>
 </mat-card>

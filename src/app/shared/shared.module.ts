@@ -7,12 +7,33 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { DurationPipe } from './duration.pipe';
 
 @NgModule({
     declarations: [InputComponent, DurationPipe],
-    imports: [CommonModule, ReactiveFormsModule, FormsModule, MatInputModule, MatFormFieldModule, MatCardModule, MatIconModule],
-    exports: [InputComponent, MatInputModule, MatFormFieldModule, MatCardModule, DurationPipe, MatIconModule],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatExpansionModule,
+    ],
+    exports: [
+        InputComponent,
+        MatInputModule,
+        MatFormFieldModule,
+        MatCardModule,
+        DurationPipe,
+        MatIconModule,
+        MatTooltipModule,
+        MatExpansionModule,
+    ],
 })
 export class SharedModule {}
