@@ -1,0 +1,31 @@
+<mat-card class="lecture">
+    <mat-card-header>
+        <mat-card-title>{{ lecture.title }}</mat-card-title>
+        <mat-card-subtitle>
+            <div class="d-flex flex-row" style="justify-content: space-between; align-items: center">
+                <span class="d-flex" style="justify-content: center; align-items: center">
+                    <mat-icon
+                        fontIcon="timer"
+                        aria-hidden="false"
+                        aria-label="Durée"
+                        style="font-size: 1.2em; display: flex; justify-content: center; align-items: center"
+                    ></mat-icon>
+                    <span>
+                        {{ lecture.duration | duration }}
+                    </span>
+                </span>
+                <span class="d-flex" style="justify-content: center; align-items: center">
+                    <mat-icon
+                        fontIcon="local_fire_department"
+                        aria-hidden="false"
+                        aria-label="Durée"
+                        style="font-size: 1.2em; display: flex; justify-content: center; align-items: center"
+                    ></mat-icon>
+                    <span>
+                        {{ lecture.difficulty }}
+                    </span>
+                </span>
+            </div>
+        </mat-card-subtitle>
+    </mat-card-header>
+</mat-card>

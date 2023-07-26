@@ -1,1 +1,4 @@
-<div class="card m-5">test</div>
+<div class="form">
+    <ec-input [placeholder]="'Titre du cours...'" (valueChange)="onLectureTitleChange($event)"></ec-input>
+    <mat-error *ngIf="isLectureTitleAlreadyTaken">Le titre est déjà pris</mat-error>
+</div>

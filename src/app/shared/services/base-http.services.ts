@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export abstract class BaseService<T> {
-    baseApiURL: string = 'http://localhost:4200';
+    baseApiURL: string = 'http://localhost:4000';
     abstract endPoint: string;
 
-    constructor(private http: HttpClient) {}
+    constructor(public http: HttpClient) {}
 
     create(dto: any): Observable<T> {
         return this.http.post<any>(`${this.baseApiURL}/${this.endPoint}`, dto);
