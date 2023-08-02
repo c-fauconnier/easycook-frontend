@@ -1,0 +1,10 @@
+.chapterForm {
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction:column;
+gap: 1em;
+    button {
+        width: 20em;
+    }
+}

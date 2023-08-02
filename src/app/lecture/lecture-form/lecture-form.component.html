@@ -1,4 +1,39 @@
-<div class="form">
-    <ec-input [placeholder]="'Titre du cours...'" (valueChange)="onLectureTitleChange($event)"></ec-input>
-    <mat-error *ngIf="isLectureTitleAlreadyTaken">Le titre est déjà pris</mat-error>
+<div class="forms">
+    <div class="lectureForm">
+        <div class="title">
+            <mat-label>Titre</mat-label>
+            <ec-input [placeholder]="'Titre du cours...'" (valueChange)="onLectureTitleChange($event)"></ec-input>
+            <mat-error *ngIf="isLectureTitleAlreadyTaken">Le titre est déjà pris</mat-error>
+        </div>
+        <div class="duration">
+            <mat-label>Durée (en minutes)</mat-label>
+            <ec-input [type]="'number'" [placeholder]="'Durée...'" (valueChange)="onDurationChange($event)"></ec-input>
+        </div>
+        <div class="description">
+            <mat-label>Description</mat-label>
+            <ec-input [type]="'textarea'" [placeholder]="'Description du cours...'" (valueChange)="onDescriptionChange($event)"></ec-input>
+        </div>
+        <div class="difficulté">
+            <mat-label>Difficulté</mat-label>
+            <mat-form-field>
+                <mat-label>Difficulté du cours</mat-label>
+                <mat-select [(ngModel)]="lecture.difficulty" name="difficulty">
+                    <mat-option [value]="1">Très facile</mat-option>
+                    <mat-option [value]="2">Facile</mat-option>
+                    <mat-option [value]="3">Moyen</mat-option>
+                    <mat-option [value]="4">Difficile</mat-option>
+                    <mat-option [value]="5">Expert</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="newChapter">
+            <button mat-raised-button (click)="onCreateNewChapter()">
+                <mat-icon matTooltip="Ajouter un chapitre" fontIcon="add" aria-hidden="false" aria-label="Ajouter"></mat-icon>
+                Nouveau chapitre
+            </button>
+        </div>
+    </div>
+    <div class="chapterForm">
+        <ec-chapter-form></ec-chapter-form>
+    </div>
 </div>

@@ -7,9 +7,11 @@ import { LectureListComponent } from './lecture-list/lecture-list.component';
 import { LectureRoutingModule } from './lecture-routing.module';
 import { LectureElementComponent } from './lecture-element/lecture-element.component';
 import { LectureDetailsComponent } from './lecture-details/lecture-details.component';
+import { FormsModule } from '@angular/forms';
+import { ChapterFormComponent } from './chapter-form/chapter-form.component';
 
 @NgModule({
-    declarations: [LectureFormComponent, LectureViewComponent, LectureListComponent, LectureElementComponent, LectureDetailsComponent],
-    imports: [CommonModule, SharedModule, LectureRoutingModule],
+    declarations: [LectureFormComponent, LectureViewComponent, LectureListComponent, LectureElementComponent, LectureDetailsComponent, ChapterFormComponent],
+    imports: [CommonModule, SharedModule, LectureRoutingModule, FormsModule],
 })
 export class LectureModule {}

@@ -1,10 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
 
-*{
-    //box-shadow: 0 0 0 3px red inset;
+
+:root {
+    --border-radius: 15px;
+    --mat-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    --cream-color:  #FFFFE0;
+    --pink-color: #FFB6C1;
+    --green-color: #98FB98;
+    --blue-color: #ADD8E6;
+    --black-color: #121212;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    
+    margin: 0; font-family: Montserrat,  sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.form {
+    box-shadow: var(--mat-box-shadow);
+    border-radius: var(--border-radius);
+    padding: 2em;
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+
+    }
+}

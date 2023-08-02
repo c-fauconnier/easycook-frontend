@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-type InputType = 'text' | 'password' | 'email' | 'number' | 'textarea';
+type InputType = 'text' | 'password' | 'email' | 'number' | 'textarea' | 'time';
 
 @Component({
     selector: 'ec-input',

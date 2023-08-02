@@ -1,0 +1,41 @@
+<div class="form chapterForm">
+    <div>
+        <h2>Chapitre {{ chapter.number }}</h2>
+    </div>
+    <div class="title">
+        <mat-label>Titre</mat-label>
+        <ec-input [placeholder]="'Titre du chapitre'" (valueChange)="onChapterTitleChange($event)"></ec-input>
+    </div>
+    <button mat-raised-button (click)="onCreateNewParagraph()">
+        <mat-icon matTooltip="Ajouter un chapitre" fontIcon="add" aria-hidden="false" aria-label="Ajouter"></mat-icon>
+        Nouveau paragraphe
+    </button>
+    <mat-form-field *ngIf="newParagraph">
+        <textarea matInput style="height: 100%"></textarea>
+    </mat-form-field>
+    <button mat-raised-button (click)="onValidateParagraph()" color="primary" *ngIf="newParagraph">
+        <mat-icon matTooltip="Valider le paragraphe" fontIcon="done" aria-hidden="false" aria-label="Ajouter"></mat-icon>
+        Valider le paragraphe
+    </button>
+</div>
+<div
+    style="
+        position: absolute;
+        right: 4em;
+        bottom: 4em;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1em;
+        box-shadow: var(--mat-box-shadow);
+        padding: 1em;
+        border-radius: var(--border-radius);
+    "
+>
+    <div style="display: flex; flex-direction: row; gap: 1em; align-items: center">
+        <span>Valider le chapitre</span>
+        <button mat-fab (click)="onValidateParagraph()" color="primary">
+            <mat-icon matTooltip="Valider le chapitre" fontIcon="done" aria-hidden="false" aria-label="Ajouter"></mat-icon>
+        </button>
+    </div>
+</div>

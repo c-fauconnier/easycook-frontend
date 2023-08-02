@@ -10,12 +10,12 @@ const routes: Routes = [
         component: LectureViewComponent,
     },
     {
-        path: ':id',
-        component: LectureDetailsComponent,
-    },
-    {
         path: 'form',
         component: LectureFormComponent,
+    },
+    {
+        path: ':id',
+        component: LectureDetailsComponent,
     },
 ];
 

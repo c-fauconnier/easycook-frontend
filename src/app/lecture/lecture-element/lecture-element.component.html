@@ -1,4 +1,4 @@
-<mat-card class="lecture" (click)="goToLecturePage()">
+<mat-card class="lecture">
     <mat-card-header>
         <mat-card-title>{{ lecture.title }}</mat-card-title>
         <mat-card-subtitle>
@@ -37,6 +37,7 @@
     </mat-card-content>
     <mat-card-actions align="end">
         <mat-icon *ngFor="let r of rating" matTooltip="rating" fontIcon="star" aria-hidden="false" aria-label="rating"></mat-icon>
-        {{ lecture.rating }}
+        <span>{{ lecture.rating }}</span>
+        <button mat-raised-button (click)="goToLecturePage()">Suivre le cours</button>
     </mat-card-actions>
 </mat-card>
