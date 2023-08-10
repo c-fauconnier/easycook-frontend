@@ -11,7 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { ChapterFormComponent } from './chapter-form/chapter-form.component';
 
 @NgModule({
-    declarations: [LectureFormComponent, LectureViewComponent, LectureListComponent, LectureElementComponent, LectureDetailsComponent, ChapterFormComponent],
+    declarations: [
+        LectureFormComponent,
+        LectureViewComponent,
+        LectureListComponent,
+        LectureElementComponent,
+        LectureDetailsComponent,
+        ChapterFormComponent,
+    ],
     imports: [CommonModule, SharedModule, LectureRoutingModule, FormsModule],
 })
 export class LectureModule {}
