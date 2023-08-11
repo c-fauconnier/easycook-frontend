@@ -1,0 +1,13 @@
+/* Centrer la carte */
+.card-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Ajouter de l'espace à gauche du logo de cadenas */
+.card-icon {
+    margin-right: 10px;
+    font-size: 10em;
+}

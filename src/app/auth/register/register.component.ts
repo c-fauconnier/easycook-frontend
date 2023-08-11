@@ -13,10 +13,10 @@ import { Observable, map } from 'rxjs';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
     constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) {}
 
-    // getter qui permet l'appel à la variable dans le template HTML
+    // Getter qui permet l'appel à la variable dans le template HTML
     get email() {
         return this.registerForm.controls['email'];
     }
@@ -26,13 +26,16 @@ export class RegisterComponent implements OnInit {
         return this.registerForm.controls['password'];
     }
 
-    // booléen pour savoir quand afficher un loading spinner
+    // Booléen pour savoir quand afficher un loading spinner
     loading: boolean = false;
+
+    // String qui contiendra une potentielle erreur envoyée du backend et sera affichée dans le template HTML
     registerError: string = '';
 
     /*
-     * Initialisation du formulaire représenté en frontend
-     * Chaque variable correspond à un champ formControlName
+     * Initialisation du formulaire représenté en frontend.
+     * Chaque variable correspond à un champ formControlName.
+     * Les validators servent à empêcher l'envoi de données incorrectes en bloquant le bouton de validation.
      */
     registerForm = this.fb.group(
         {
@@ -57,7 +60,6 @@ export class RegisterComponent implements OnInit {
             validators: [confirmEqualValidator('password', 'confirmPassword')],
         }
     );
-    ngOnInit(): void {}
 
     /*
      * Fonction appelée lors de la validation de l'inscription

@@ -3,51 +3,31 @@
     margin-right: 0;
 }
 
-nav ul li a {
-    display: block;
-    //padding: 15px;
-    text-decoration: none;
-    //color: whitesmoke;
-    //font-weight: 800;
-    //text-transform: uppercase;
-    margin: 0 10px;
-}
-nav ul li a,
-nav ul li a:after,
-nav ul li a:before {
-    transition: all 0.5s;
-}
-nav ul li a:hover,
-nav ul li .active {
-    color: var(--pink-color);
-}
-/* stroke */
-nav.stroke ul li a {
+.nav-item {
     position: relative;
 }
-nav.stroke ul li a:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 0%;
-    content: '.';
-    color: transparent;
-    background: var(--pink-color);
-    height: 1px;
-}
-nav.stroke ul li a:hover:after {
-    width: 100%;
-}
-.active {
-    border-bottom: 1px solid var(--pink-color);
-}
-
-.dropdown-item {
-    width: auto;
-}
-.dropdown-item:active {
+.nav-link {
     color: var(--pink-color);
-    background-color: transparent;
+}
+.nav-link.active,
+.nav-link.show,
+.dropdown-item:active {
+    color: white; /* Couleur du texte pour le lien actif */
+    background-color: pink; /* Couleur de fond pour le lien actif */
+}
+.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--pink-color);
+    visibility: hidden;
+    transition: width 0.3s ease-in-out;
+}
+.nav-link:hover::before,
+.nav-link.active::before {
+    visibility: visible;
+    width: 100%;
 }

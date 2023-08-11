@@ -1,3 +1,11 @@
+<!-- Afficher une carte de redirection si l'état n'est pas connecté -->
+<ec-login-redirect *ngIf="!isConnected"></ec-login-redirect>
+
 <div class="view">
     <ec-lecture-list [lectures]="lectures"></ec-lecture-list>
+</div>
+
+<!-- Bouton flottant "Créer un cours" -->
+<div *ngIf="isAdmin" class="position-fixed d-flex justify-content-end fixed-bottom p-3">
+    <button class="btn btn-primary" (click)="formRedirect()">Créer un cours</button>
 </div>

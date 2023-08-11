@@ -15,27 +15,45 @@ body {
     height: 100%;
 }
 body {
+    display: flex;
+    flex-direction: column;
+    //min-height: 100vh;
     margin: 0;
     font-family: Montserrat, sans-serif;
-    background-color: var(--black-color);
+    background-color: var(--cream-color);
 }
 
-.form {
-    box-shadow: var(--mat-box-shadow);
-    border-radius: var(--border-radius);
-    padding: 2em;
-    div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5em;
-    }
+.main-content {
+    flex: 1;
+    min-height: 100vh;
 }
 
-html,
-body {
-    height: 100%;
+.bg-footer {
+    background-color: #ff9aa8;
+    color: #fff;
 }
-body {
-    margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+// .form {
+//     box-shadow: var(--mat-box-shadow);
+//     border-radius: var(--border-radius);
+//     padding: 2em;
+//     div {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 0.5em;
+//     }
+// }
+
+/* Modifier la couleur des boutons */
+.btn.btn-primary {
+    background-color: #ffb6c1;
+    border-color: #ffb6c1;
+    color: #fff;
+}
+
+/* Assombrir lors du survol */
+.btn.btn-primary:hover {
+    background-color: #ff9aa8; /* Couleur plus sombre */
+    border-color: #ff9aa8; /* Couleur plus sombre pour la bordure */
+    color: #fff;
 }

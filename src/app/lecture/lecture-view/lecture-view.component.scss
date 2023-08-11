@@ -1,3 +1,9 @@
 .view {
     margin: 1em;
 }
+/* Masquer le bouton lorsque le volet de navigation est ouvert en mode mobile */
+@media (max-width: 767px) {
+    #createRecipeButton {
+        display: none;
+    }
+}

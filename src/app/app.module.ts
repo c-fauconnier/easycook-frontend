@@ -10,9 +10,10 @@ import { SharedModule } from './shared/shared.module';
 import { LectureModule } from './lecture/lecture.module';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { AuthInterceptorService } from './auth/interceptors/auth.interceptor';
+import { FooterComponent } from './core/footer/footer.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent],
+    declarations: [AppComponent, NavbarComponent, FooterComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

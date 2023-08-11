@@ -9,6 +9,7 @@ import { LectureElementComponent } from './lecture-element/lecture-element.compo
 import { LectureDetailsComponent } from './lecture-details/lecture-details.component';
 import { FormsModule } from '@angular/forms';
 import { ChapterFormComponent } from './chapter-form/chapter-form.component';
+import { ParagraphFormComponent } from './paragraph-form/paragraph-form.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { ChapterFormComponent } from './chapter-form/chapter-form.component';
         LectureElementComponent,
         LectureDetailsComponent,
         ChapterFormComponent,
+        ParagraphFormComponent,
     ],
     imports: [CommonModule, SharedModule, LectureRoutingModule, FormsModule],
 })

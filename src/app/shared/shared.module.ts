@@ -15,11 +15,15 @@ import { DurationPipe } from './duration.pipe';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConnectionStateHandlerComponent } from './components/base/connection-state-handler/connection-state-handler.component';
+import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [InputComponent, DurationPipe],
+    declarations: [InputComponent, DurationPipe, ConnectionStateHandlerComponent, LoginRedirectComponent],
     imports: [
         CommonModule,
+        RouterModule,
         ReactiveFormsModule,
         FormsModule,
         MatInputModule,
@@ -49,6 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatRadioModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
+        LoginRedirectComponent,
     ],
 })
 export class SharedModule {}
