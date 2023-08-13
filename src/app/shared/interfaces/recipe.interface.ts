@@ -1,3 +1,4 @@
+import { Comment } from './comment.interface';
 import { RecipeIngredient } from './recipe-ingredient.interface';
 import { Step } from './step.interface';
 import { User } from './user.interface';
@@ -11,5 +12,5 @@ export interface Recipe {
     user?: User;
     steps: Step[];
     ingredients: RecipeIngredient[];
-    comments: Comment[];
+    comments?: Comment[];
 }

@@ -38,6 +38,15 @@ export class AuthService extends BaseService<any> {
         return this._user;
     }
 
+    // Simple function to know role status
+    isAdmin(): boolean {
+        if (this.token) {
+            return this.user.role === 'admin' ? true : false;
+        } else {
+            return false;
+        }
+    }
+
     get token(): string {
         const token = localStorage.getItem('easycook_token');
         if (token) return token;
@@ -78,5 +87,6 @@ export class AuthService extends BaseService<any> {
         localStorage.removeItem('easycook_token');
         this.user$.next(null);
         this.isConnected$.next(false);
+        location.href = '/auth/login';
     }
 }

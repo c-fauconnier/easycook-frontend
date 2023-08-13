@@ -1,0 +1,103 @@
+<div class="container mt-5">
+    <p>{{ myAccount }}</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img
+                    src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                    class="card-img-top"
+                    alt="Image Utilisateur"
+                    style="max-height: 250px; object-fit: contain"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.nickname }}</h5>
+                    <p class="card-text">
+                        <i>A rejoint EasyCook le {{ user.createdAt | date }}</i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Informations Personnelles</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+                        <li class="list-group-item"><strong>Nom:</strong> {{ user.name }}</li>
+                        <li class="list-group-item"><strong>Prénom:</strong> {{ user.surname }}</li>
+                        <!-- Ajoute d'autres informations ici -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noRecipes><p>Vous n'avez pas de recettes en favoris</p></ng-template>
+    <ng-template #noComments><p>Vous n'avez pas écrit de commentaires.</p></ng-template>
+    <ng-template #noLectures><p>Vous ne suivez aucun cours.</p></ng-template>
+    <!-- Tableau Cours Suivis -->
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4 class="card-title">Cours Suivis:</h4>
+            <table class="table" *ngIf="user?.lectures; else noLectures">
+                <thead>
+                    <tr>
+                        <th>Nom du Cours</th>
+                        <th>Difficulté</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recipe of user?.lectures">
+                        <td>{{ recipe.title }}/td></td>
+                        <td>{{ recipe.difficulty }}</td>
+                    </tr>
+                </tbody>
+                <a href="#">Voir tous les cours <i class="bi bi-arrow-right"></i></a>
+            </table>
+        </div>
+    </div>
+    <!-- Tableau Recettes Suivies -->
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4 class="card-title">Recettes Suivies:</h4>
+            <table class="table" *ngIf="(user?.recipes)!.length > 0; else noRecipes">
+                <thead>
+                    <tr>
+                        <th>Nom de la recette</th>
+                        <th>Difficulté</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recipe of user.recipes">
+                        <td>{{ recipe.title }}/td></td>
+                        <td>{{ recipe.difficulty }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a>Voir toutes les recettes <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <!-- Tableau Commentaires Récents -->
+    <div class="card my-3">
+        <div class="card-body">
+            <h4 class="card-title">Derniers Commentaires</h4>
+            <table class="table" *ngIf="(user?.comments)!.length > 0; else noComments">
+                <thead>
+                    <tr>
+                        <th>Commentaire</th>
+                        <th>Contenu</th>
+                        <th>Evaluation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let comment of user?.comments">
+                        <td>{{ comment.title }}/td></td>
+                        <td>{{ comment.content }}</td>
+                        <td>{{ comment.rating }}</td>
+                    </tr>
+                </tbody>
+                <a href="#">Voir tous les commentaires <i class="bi bi-arrow-right"></i></a>
+            </table>
+        </div>
+    </div>
+</div>

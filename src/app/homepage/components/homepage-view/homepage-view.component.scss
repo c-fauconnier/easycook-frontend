@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.full-width-bg {
+    width: 100%; /* Occupe toute la largeur de la page */
+    background-color: var(--cream-color);
+    color: var(--black-color);
+}
+/* Style à appliquer tous les éléments impairs */
+.full-width-bg:nth-child(even) {
+    background-color: var(--black-color);
+    color: var(--cream-color);
+}
+.alternate-section {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-section {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.image-section {
+    max-width: 40%;
+    margin: 0 auto;
+}

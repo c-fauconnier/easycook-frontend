@@ -1,0 +1,29 @@
+<!-- Afficher une carte de redirection si l'état n'est pas connecté -->
+<ec-login-redirect *ngIf="!isConnected"></ec-login-redirect>
+<p>video-room works!</p>
+<!-- <div class="container-fluid">
+    <form [formGroup]="conversationFormGroup" (ngSubmit)="getOrcreateConversation()">
+        <div class="form-floating mb-3">
+            <input type="text" placeholder="abcd" formControlName="name" id="name" class="form-control" />
+            <label for="name">Conversation Name</label>
+        </div>
+        &nbsp;
+        <button class="btn btn-primary" type="submit" [disabled]="!conversationFormGroup.valid" title="Get Or Create Conversation">
+            GetOrCreateConversation
+        </button>
+    </form>
+</div> -->
+<!-- <div class="container">
+    <div>
+        <p class="video-description">local:</p>
+        <video #local_video [autoplay]="true" [muted]="true"></video>
+    </div>
+    <div>
+        <p class="video-description">remote:</p>
+        <video #received_video [autoplay]="true"></video>
+    </div>
+</div>
+<button mat-raised-button color="primary" (click)="startLocalVideo()" [disabled]="localVideoActive">Start Local</button>
+<button mat-raised-button color="primary" (click)="pauseLocalVideo()" [disabled]="!localVideoActive">Stop Local</button>
+<button mat-raised-button color="primary" (click)="call()" [disabled]="inCall || !localVideoActive">Call</button>
+<button mat-raised-button color="primary" (click)="hangUp()" [disabled]="!inCall">HangUp</button> -->

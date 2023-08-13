@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-light sticky-top py-3 stroke">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-3 stroke">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"> <img src="assets/cropped_dark_logo.png" alt="logo" height="40" /> Easycook</a>
+        <a class="navbar-brand" routerLink=""> <img src="assets/cropped_logo.png" alt="logo" height="40" /> Easycook</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -10,45 +10,53 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas text-bg-dark offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h1 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item fill">
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="lecture" routerLinkActive="active"
                             ><i class="bi bi-book"></i> Cours</a
                         >
                     </li>
-                    <li class="nav-item fill">
+                    <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-journal"></i> Recettes</a>
                     </li>
-                    <li class="nav-item fill">
+                    <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-image"></i> Publications</a>
                     </li>
-                    <li class="nav-item fill">
-                        <a href="#" class="nav-link"><i class="bi bi-camera-video"></i> Groupes vidéo</a>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="video" routerLinkActive="active"
+                            ><i class="bi bi-camera-video"></i> Groupes vidéo</a
+                        >
                     </li>
-                    <li *ngIf="isConnected === false" class="nav-item fill">
-                        <a class="nav-link" routerLink="auth/login" routerLinkActive="active"> Se connecter</a>
+                    <li *ngIf="isConnected === false" class="nav-item">
+                        <a class="nav-link custom-link" routerLink="auth/login" routerLinkActive="active"> Se connecter</a>
                     </li>
-                    <li *ngIf="isConnected === false" class="nav-item fill">
-                        <a class="nav-link" routerLink="auth/register" routerLinkActive="active"> S'inscrire</a>
+                    <li *ngIf="isConnected === false" class="nav-item">
+                        <a class="nav-link custom-link" routerLink="auth/register" routerLinkActive="active"> S'inscrire</a>
                     </li>
-                    <li *ngIf="isConnected === true" class="nav-item dropdown">
+                    <li *ngIf="isConnected === true && !isAdmin" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i> Profil</a
                         >
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" routerLink="/">Voir mon profil</a></li>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                            <li><a class="dropdown-item" [routerLink]="['/profile', id]">Voir mon profil</a></li>
                             <li><a class="dropdown-item" href="#">Modifier mes informations</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#" (click)="disconnect()">Se déconnecter</a></li>
+                            <li><a class="dropdown-item" href="/" (click)="disconnect()">Se déconnecter</a></li>
                         </ul>
+                    </li>
+                    <li *ngIf="isAdmin === true" class="nav-item">
+                        <a class="nav-link admin" routerLink="/admin" routerLinkActive="admin-active">Administration</a>
+                    </li>
+                    <li *ngIf="isAdmin === true" class="nav-item">
+                        <a class="nav-link" href="/auth/login" (click)="disconnect()">Se déconnecter</a>
                     </li>
                 </ul>
             </div>

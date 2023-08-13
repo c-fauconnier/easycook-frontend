@@ -18,9 +18,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConnectionStateHandlerComponent } from './components/base/connection-state-handler/connection-state-handler.component';
 import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
 import { RouterModule } from '@angular/router';
+import { ErrorRedirectComponent } from './components/error-redirect/error-redirect.component';
 
 @NgModule({
-    declarations: [InputComponent, DurationPipe, ConnectionStateHandlerComponent, LoginRedirectComponent],
+    declarations: [InputComponent, DurationPipe, ConnectionStateHandlerComponent, LoginRedirectComponent, ErrorRedirectComponent],
     imports: [
         CommonModule,
         RouterModule,
@@ -54,6 +55,7 @@ import { RouterModule } from '@angular/router';
         MatToolbarModule,
         MatProgressSpinnerModule,
         LoginRedirectComponent,
+        ErrorRedirectComponent,
     ],
 })
 export class SharedModule {}

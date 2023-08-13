@@ -15,7 +15,7 @@ export class LectureViewComponent implements OnInit {
     constructor(private service: LecturesService, private auth: AuthService, private router: Router) {}
 
     isConnected: boolean = false;
-    isAdmin: boolean = false;
+    isAdmin: boolean = this.auth.isAdmin();
 
     ngOnInit(): void {
         // Calling auth service to know the connection state
@@ -34,9 +34,9 @@ export class LectureViewComponent implements OnInit {
         }
 
         // Setting our admin boolean
-        if (this.auth.user.role === 'admin') {
-            this.isAdmin = true;
-        }
+        // if (this.auth.user.role === 'admin') {
+        //     this.isAdmin = true;
+        // }
     }
 
     // Redirect only accessible for admin

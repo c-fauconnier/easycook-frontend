@@ -6,7 +6,7 @@
     --mat-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     --cream-color: #ffffe0;
     --pink-color: #ffb6c1;
-    --green-color: #98fb98;
+    --green-color: #88e188;
     --blue-color: #add8e6;
     --black-color: #121212;
 }
@@ -15,45 +15,56 @@ body {
     height: 100%;
 }
 body {
-    display: flex;
-    flex-direction: column;
-    //min-height: 100vh;
     margin: 0;
     font-family: Montserrat, sans-serif;
-    background-color: var(--cream-color);
+    background-color: var(--black-color);
 }
 
-.main-content {
-    flex: 1;
+/* Permet d'avoir une page qui fera toujours la taille maximale afin de garder le footer au pied */
+.app-container {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
-.bg-footer {
-    background-color: #ff9aa8;
+/* Classe du component qui sera appelé par <router-outlet> */
+.main-content {
+    flex: 1; /* Permet d'occuper tout l'espace interne */
     color: #fff;
+    min-height: auto; /* Hauteur minimale de 100vh - 100px */
 }
-
-// .form {
-//     box-shadow: var(--mat-box-shadow);
-//     border-radius: var(--border-radius);
-//     padding: 2em;
-//     div {
-//         display: flex;
-//         flex-direction: column;
-//         gap: 0.5em;
-//     }
-// }
 
 /* Modifier la couleur des boutons */
 .btn.btn-primary {
-    background-color: #ffb6c1;
-    border-color: #ffb6c1;
+    background-color: var(--green-color);
+    border-color: var(--green-color);
     color: #fff;
 }
 
 /* Assombrir lors du survol */
 .btn.btn-primary:hover {
-    background-color: #ff9aa8; /* Couleur plus sombre */
-    border-color: #ff9aa8; /* Couleur plus sombre pour la bordure */
+    background-color: var(--green-color); /* Couleur plus sombre */
+    border-color: var(--green-color); /* Couleur plus sombre pour la bordure */
     color: #fff;
+}
+
+/* Change la couleur des cards */
+.card {
+    background-color: var(--cream-color);
+}
+
+/* Sert pour les boutons d'inscription/connexion dans la navbar */
+.custom-link {
+    margin: 0 10px;
+    border: 2px solid white;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+.custom-link:hover,
+.custom-link:focus,
+.custom-link:active {
+    background-color: #88e188;
+    color: white;
 }

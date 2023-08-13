@@ -47,8 +47,9 @@ export class LoginComponent {
         this.auth.login(credentials).subscribe({
             next: (res: AccessToken) => {
                 this.loading = false;
-                if (res.access_token) this.router.navigateByUrl('/');
-                else {
+                if (res.access_token) {
+                    location.href = '/';
+                } else {
                     this.loading = false;
                     this.error = true;
                     return;

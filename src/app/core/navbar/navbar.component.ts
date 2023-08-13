@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import jwt_decode from 'jwt-decode';
 import { AuthService } from 'src/app/auth/auth.service';
-import { DecodedToken } from 'src/app/shared/interfaces/decoded-token.interface';
 
 @Component({
     selector: 'ec-navbar',
@@ -9,19 +7,22 @@ import { DecodedToken } from 'src/app/shared/interfaces/decoded-token.interface'
     styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-    constructor(private authService: AuthService) {}
+    constructor(private auth: AuthService) {}
 
     public isConnected: boolean = false;
+    public isAdmin: boolean = this.auth.isAdmin();
+    public id: string = '';
 
     ngOnInit(): void {
-        (this.authService as AuthService).isConnected$.subscribe({
+        (this.auth as AuthService).isConnected$.subscribe({
             next: (isConnected: boolean) => {
                 this.isConnected = isConnected;
             },
         });
+        this.id = this.auth.user.id;
     }
 
     disconnect() {
-        this.authService.disconnect();
+        this.auth.disconnect();
     }
 }

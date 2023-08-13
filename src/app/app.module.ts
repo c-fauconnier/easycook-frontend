@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +11,8 @@ import { LectureModule } from './lecture/lecture.module';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { AuthInterceptorService } from './auth/interceptors/auth.interceptor';
 import { FooterComponent } from './core/footer/footer.component';
-
+import { registerLocaleData } from '@angular/common';
+import * as fr from '@angular/common/locales/fr';
 @NgModule({
     declarations: [AppComponent, NavbarComponent, FooterComponent],
     imports: [
@@ -30,7 +31,15 @@ import { FooterComponent } from './core/footer/footer.component';
             useClass: AuthInterceptorService,
             multi: true,
         },
+        {
+            provide: LOCALE_ID,
+            useValue: 'fr-FR',
+        },
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor() {
+        registerLocaleData(fr.default);
+    }
+}
