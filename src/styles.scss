@@ -35,14 +35,14 @@ body {
 }
 
 /* Modifier la couleur des boutons */
-.btn.btn-primary {
+.btn.btn-green {
     background-color: var(--green-color);
     border-color: var(--green-color);
     color: #fff;
 }
 
 /* Assombrir lors du survol */
-.btn.btn-primary:hover {
+.btn.btn-green:hover {
     background-color: var(--green-color); /* Couleur plus sombre */
     border-color: var(--green-color); /* Couleur plus sombre pour la bordure */
     color: #fff;

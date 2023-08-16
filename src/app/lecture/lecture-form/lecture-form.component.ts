@@ -1,104 +1,103 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
 import { LecturesService } from '../lectures.service';
-import { Lecture } from '../../shared/interfaces/lecture.interface';
 import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Chapter } from '../models/chapter.model';
+import { Lecture } from '../models/lecture.model';
 
 @Component({
     selector: 'ec-lecture-form',
     templateUrl: './lecture-form.component.html',
     styleUrls: ['./lecture-form.component.scss'],
 })
-export class LectureFormComponent {
-    // lecture: Lecture = {} as Lecture;
-    // isLectureTitleAlreadyTaken: boolean = false;
-    // private _lectureTitleSearch$ = new Subject<string>();
-    // isNewChapterFormOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    // _isNewChapterFormOpen: boolean = this.isNewChapterFormOpen$.getValue();
-
-    constructor(private fb: FormBuilder, private service: LecturesService) {}
-    courseForm = this.fb.group({
-        title: [''],
-        description: [''],
-        date: [''],
-        duration: [''],
-        chapters: this.fb.array([]), // Utilisation de FormArray pour les chapitres
-    });
-
-    get chaptersFormArray() {
-        return this.courseForm.get('chapters') as FormArray;
+export class LectureFormComponent implements OnInit {
+    lectureForm: FormGroup;
+    _lecture: Lecture = new Lecture();
+    constructor(private fb: FormBuilder) {}
+    ngOnInit(): void {
+        this.initForm();
     }
 
+    initForm(): void {
+        this.lectureForm = this.fb.group({
+            title: ['', Validators.required],
+            description: ['', Validators.required],
+            duration: [0, [Validators.required, Validators.min(1)]],
+            difficulty: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
+            chapters: this.fb.array([]),
+        });
+    }
+
+    // Ajouter un paragraphe dans le tableau de lectureForm.chapters
     addChapter() {
-        const chapterFormGroup = this.fb.group(new Chapter());
-        this.chaptersFormArray.push(chapterFormGroup);
+        //const chapters = this.lectureForm.get('chapters') as FormArray;
+        //chapters.push(this.createChapter());
+
+        let chapters = this._lecture.chapters;
+        chapters.push(this.createChapter());
     }
 
+    // supprime un élément du tableau sur base de son index
     removeChapter(index: number) {
-        this.chaptersFormArray.removeAt(index);
-    }
+        // const chapters = this.lectureForm.get('chapters') as FormArray;
+        // chapters.removeAt(index);
 
-    moveChapterUp(index: number) {
-        if (index > 0) {
-            const chapter = this.chaptersFormArray.at(index);
-            this.chaptersFormArray.removeAt(index);
-            this.chaptersFormArray.insert(index - 1, chapter);
+        // // Recalculer les index des chapitres restants
+        // for (let i = 0; i < chapters.length; i++) {
+        //     chapters
+        //         .at(i)
+        //         .get('index')
+        //         ?.setValue(i + 1);
+        // }
+        let paragraphs = this._lecture.chapters;
+
+        if (index >= 0 && index < paragraphs.length) {
+            paragraphs.splice(index, 1);
+        }
+
+        // Recalculer les index des paragraphes restants
+        for (let i = 0; i < paragraphs.length; i++) {
+            paragraphs[i].index = i + 1;
         }
     }
 
-    moveChapterDown(index: number) {
-        if (index < this.chaptersFormArray.length - 1) {
-            const chapter = this.chaptersFormArray.at(index);
-            this.chaptersFormArray.removeAt(index);
-            this.chaptersFormArray.insert(index + 1, chapter);
+    // supprime le tableau de chapitres
+    removeAllChapters() {
+        // const chapters = this.lectureForm.get('chapters') as FormArray;
+        // while (chapters.length !== 0) {
+        //     chapters.removeAt(0);
+        const userConfirm = confirm('Êtes-vous sûr de vouloir supprimer tous les chapitres ?');
+        if (userConfirm) {
+            this._lecture.chapters = [];
         }
     }
-    onSubmit() {
-        console.log(this.courseForm.value);
+
+    // getter du tableau des chapitres
+    chapters(): Chapter[] {
+        //return this.lectureForm.get('chapters') as FormArray;
+        return this._lecture.chapters;
     }
-    // ngOnInit() {
-    //     this._lectureTitleSearch$
-    //         .pipe(
-    //             debounceTime(1000),
-    //             distinctUntilChanged(),
-    //             switchMap((res) => {
-    //                 return this.service.verifyTitle(res);
-    //             })
-    //         )
-    //         .subscribe({
-    //             next: (val) => {
-    //                 this.isLectureTitleAlreadyTaken = val;
-    //             },
-    //         });
-    //     this.isNewChapterFormOpen$.subscribe({
-    //         next: (bool) => {
-    //             this._isNewChapterFormOpen = bool;
-    //         },
+
+    // private createChapter(): FormGroup {
+    //     return this.fb.group({
+    //         title: ['', Validators.required],
+    //         isCompleted: [false],
+    //         media: [''],
+    //         paragraphs: this.fb.array([]),
     //     });
     // }
 
-    // onLectureTitleChange(search: string): void {
-    //     if (search && search.length > 1) {
-    //         this._lectureTitleSearch$.next(search);
+    private createChapter(): Chapter {
+        return new Chapter();
+    }
 
-    //         if (!this.isLectureTitleAlreadyTaken) {
-    //             this.lecture.title = search;
-    //         }
-    //     }
-    // }
+    onSubmit(): void {
+        this.lectureForm.value.chapters = this._lecture.chapters;
+        if (this.lectureForm.valid) {
+            const lecture: Lecture = this.lectureForm.value;
+            console.log(lecture);
 
-    // onDurationChange(during: string): void {
-    //     if (during) this.lecture.duration = +during;
-    // }
-
-    // onDescriptionChange(description: string): void {
-    //     if (description.length > 5) this.lecture.description = description;
-    // }
-
-    // onCreateNewChapter(): void {
-    //     if (!this._isNewChapterFormOpen) {
-    //         this.isNewChapterFormOpen$.next(true);
-    //     }
-    // }
+            // Faire quelque chose avec la conférence saisie, par exemple l'envoyer au serveur
+        }
+    }
 }

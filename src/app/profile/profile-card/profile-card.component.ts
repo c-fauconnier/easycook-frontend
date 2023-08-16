@@ -18,9 +18,9 @@ export class ProfileCardComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe((params) => {
             this.id = params['id'];
-            this.isMyAccount();
+            //this.isMyAccount();
         });
-        this.id = this.route.snapshot.paramMap.get('id')!; // Récupère l'ID depuis l'URL
+        //this.id = this.route.snapshot.paramMap.get('id')!; // Récupère l'ID depuis l'URL
         this.service.userData$.subscribe({
             next: (res) => {
                 this.user = res;
@@ -28,6 +28,4 @@ export class ProfileCardComponent implements OnInit {
             },
         });
     }
-
-    private isMyAccount() {}
 }

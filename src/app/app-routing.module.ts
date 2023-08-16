@@ -7,7 +7,7 @@ const routes: Routes = [
     { path: 'profile', loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule) },
     { path: 'lecture', loadChildren: () => import('./lecture/lecture.module').then((m) => m.LectureModule) },
     { path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
-    { path: '', redirectTo: '', pathMatch: 'full', component: HomepageViewComponent },
+    { path: '**', redirectTo: '', pathMatch: 'full', component: HomepageViewComponent },
 ];
 
 @NgModule({

@@ -10,7 +10,6 @@ import { User } from 'src/app/shared/interfaces/user.interface';
 })
 export class ProfileRecipesComponent implements OnInit {
     constructor(private service: ProfileService) {}
-    //@Input() recipes: Recipe[] = []; // Tableau de recettes reçu depuis le parent
     user: User = {} as User;
     recipes: Recipe[] = [];
     currentPage: number = 1;
@@ -19,8 +18,8 @@ export class ProfileRecipesComponent implements OnInit {
 
     ngOnInit(): void {
         this.service.userData$.subscribe((user) => {
-            this.user = user!;
-            this.recipes = user!.recipes;
+            this.user = user;
+            this.recipes = user.recipes;
         });
         this.totalPages = Math.ceil(this.recipes.length / this.itemsPerPage);
     }

@@ -29,24 +29,10 @@
     color: white; /* Couleur du texte pour le lien actif */
     background-color: var(--green-color); /* Couleur de fond pour le lien actif */
 }
-// .nav-link::before {
-//     content: '';
-//     position: absolute;
-//     width: 0;
-//     height: 2px;
-//     bottom: -2px;
-//     left: 0;
-//     background-color: var(--green-color);
-//     visibility: hidden;
-//     transition: width 0.3s ease-in-out;
-// }
-// .nav-link:hover::before,
-// .nav-link.active::before {
-//     visibility: visible;
-//     width: 100%;
-// }
+
 .admin,
-.admin-active {
+.admin-active,
+.admin:hover {
     background-color: red;
     color: white;
 }

@@ -1,41 +1,34 @@
-<!-- <div class="form chapterForm">
-    <div>
-        <h2>Chapitre {{ chapter.number }}</h2>
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <!-- ... Autres champs de formulaire -->
+            <h4>Chapitre n°: {{ _chapter.index }}</h4>
+            <div class="mb-3">
+                <label for="title" class="form-label">Titre :</label>
+                <input
+                    type="text"
+                    id="title"
+                    class="form-control"
+                    [(ngModel)]="_chapter.title"
+                    (ngModelChange)="onTitleChange($event)"
+                    required
+                />
+                <div class="invalid-feedback">Veuillez entrer un titre.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="media" class="form-label">Lien vidéo YouTube (url):</label>
+                <input type="text" id="media" class="form-control" [(ngModel)]="_chapter.media" (ngModelChange)="onMediaChange($event)" />
+            </div>
+            <div class="mb-3 d-flex justify-content-between">
+                <button type="button" class="btn btn-primary" (click)="addParagraph()">Ajouter un paragraphe</button>
+                <button type="button" class="btn btn-danger" (click)="removeAllParagraphs()">Supprimer tous les paragraphes</button>
+            </div>
+            <div *ngFor="let paragraph of _chapter.paragraphs; let i = index" class="mb-3">
+                <ec-paragraph-form [index]="i" [paragraph]="paragraph" (deleteParagraph)="removeParagraph(i)"></ec-paragraph-form>
+            </div>
+
+            <button class="btn btn-secondary" (click)="onDelete()">Supprimer le chapitre</button>
+        </div>
     </div>
-    <div class="title">
-        <mat-label>Titre</mat-label>
-        <ec-input [placeholder]="'Titre du chapitre'" (valueChange)="onChapterTitleChange($event)"></ec-input>
-    </div>
-    <button mat-raised-button (click)="onCreateNewParagraph()">
-        <mat-icon matTooltip="Ajouter un chapitre" fontIcon="add" aria-hidden="false" aria-label="Ajouter"></mat-icon>
-        Nouveau paragraphe
-    </button>
-    <mat-form-field *ngIf="newParagraph">
-        <textarea matInput style="height: 100%"></textarea>
-    </mat-form-field>
-    <button mat-raised-button (click)="onValidateParagraph()" color="primary" *ngIf="newParagraph">
-        <mat-icon matTooltip="Valider le paragraphe" fontIcon="done" aria-hidden="false" aria-label="Ajouter"></mat-icon>
-        Valider le paragraphe
-    </button>
 </div>
-<div
-    style="
-        position: absolute;
-        right: 4em;
-        bottom: 4em;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1em;
-        box-shadow: var(--mat-box-shadow);
-        padding: 1em;
-        border-radius: var(--border-radius);
-    "
->
-    <div style="display: flex; flex-direction: row; gap: 1em; align-items: center">
-        <span>Valider le chapitre</span>
-        <button mat-fab (click)="onValidateParagraph()" color="primary">
-            <mat-icon matTooltip="Valider le chapitre" fontIcon="done" aria-hidden="false" aria-label="Ajouter"></mat-icon>
-        </button>
-    </div>
-</div> -->

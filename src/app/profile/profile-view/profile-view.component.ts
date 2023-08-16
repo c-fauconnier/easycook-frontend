@@ -25,8 +25,6 @@ export class ProfileViewComponent implements OnInit {
 
     private loadData() {
         if (this.id) {
-            // Load data for the userId, you can also use userData from the service
-            // to combine with this.id and load related data
             this.service.getProfile(this.id).subscribe({
                 next: (res: User) => {
                     res != null ? (this.user = res) : (this.notFound = true);

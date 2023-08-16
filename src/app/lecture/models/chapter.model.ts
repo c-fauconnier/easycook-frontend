@@ -1,15 +1,15 @@
 import { Paragraph } from './paragraph.model';
 
 export class Chapter {
-    number: number;
+    index: number;
     title: string;
     isCompleted: boolean;
-    video?: string;
-    paragraph: Paragraph[];
+    media?: string;
+    paragraphs: Paragraph[];
     constructor() {
-        this.number = NaN;
+        this.index = NaN;
         this.title = '';
         this.isCompleted = false;
-        this.paragraph = [];
+        this.paragraphs = [];
     }
 }
