@@ -1,0 +1,27 @@
+
+.table tr :is(td, th) {
+    background-color: var(--cream-color) !important;
+    
+}
+
+
+.actions {
+    display: flex;
+    width: 30%;
+    padding: 1em;
+    gap: .5em;
+    button {
+        background-color: var(--cream-color);
+        border: none;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        &:hover {
+            color: var(--black-color);
+        }
+    }
+}
+
+.list {
+    margin: 1em;
+}

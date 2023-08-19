@@ -7,6 +7,7 @@ const routes: Routes = [
     { path: 'profile', loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule) },
     { path: 'lecture', loadChildren: () => import('./lecture/lecture.module').then((m) => m.LectureModule) },
     { path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+    { path: 'admin', loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule) },
     { path: '**', redirectTo: '', pathMatch: 'full', component: HomepageViewComponent },
 ];
 

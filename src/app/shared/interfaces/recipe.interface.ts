@@ -4,6 +4,7 @@ import { Step } from './step.interface';
 import { User } from './user.interface';
 
 export interface Recipe {
+    id: string;
     title: string;
     description: string;
     difficulty: number;
@@ -13,4 +14,5 @@ export interface Recipe {
     steps: Step[];
     ingredients: RecipeIngredient[];
     comments?: Comment[];
+    createdAt?: Date | null;
 }

@@ -41,6 +41,7 @@ import { ErrorRedirectComponent } from './components/error-redirect/error-redire
     ],
     exports: [
         ReactiveFormsModule,
+        FormsModule,
         InputComponent,
         MatInputModule,
         MatFormFieldModule,

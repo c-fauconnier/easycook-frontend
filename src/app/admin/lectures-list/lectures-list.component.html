@@ -1,0 +1,31 @@
+<div class="lectures">
+    <table class="table" *ngIf="lectures.length">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Difficulté</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lecture of lectures">
+                <td>{{ lecture.title }}</td>
+                <td>{{ lecture.description }}</td>
+                <td>{{ lecture.duration }}</td>
+                <td>{{ lecture.difficulty }}</td>
+                <td>{{ lecture.rating }} / 5</td>
+                <td>
+                    <button class="btn btn-danger" title="Supprimer">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="!lectures.length">
+        <p>Aucun cours pour le moment</p>
+    </div>
+</div>

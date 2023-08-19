@@ -1,0 +1,67 @@
+<div class="recipes">
+    <div class="filter">
+        <div>
+            <input type="radio" [value]="'all'" [(ngModel)]="onlyValidedRecipes" (ngModelChange)="onValidationChange($event)" />
+            <label for="valid">Toutes les recettes</label>
+        </div>
+        <div>
+            <input type="radio" [value]="'valid'" [(ngModel)]="onlyValidedRecipes" (ngModelChange)="onValidationChange($event)" />
+            <label for="valid">Recettes validées</label>
+        </div>
+        <div>
+            <input type="radio" [value]="'unvalid'" [(ngModel)]="onlyValidedRecipes" (ngModelChange)="onValidationChange($event)" />
+            <label for="valid">Recettes en attente de validation</label>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Difficulté</th>
+                <th scope="col">Likes</th>
+                <th scope="col">Validé</th>
+                <th scope="col">Date de création</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let recipe of _recipes">
+                <td>{{ recipe.title }}</td>
+                <td>{{ recipe.difficulty }}</td>
+                <td>{{ recipe.likes }}</td>
+                <td>{{ recipe.isValid ? 'Validée' : 'En attente de validation' }}</td>
+                <td>{{ recipe.createdAt | date : 'dd/MM/yy HH:mm' }}</td>
+                <td id="actions">
+                    <button
+                        class="btn btn-success"
+                        title="Valider"
+                        *ngIf="!recipe.isValid"
+                        (click)="recipe.isValid ? '' : onValidateRecipe(recipe)"
+                    >
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button class="btn btn-danger" title="Supprimer">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                    <button class="btn btn-primary" title="Aller vers la recette" (click)="goToRecipe(recipe.id)">
+                        <i class="fa-solid fa-location-arrow"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="dialog" *ngIf="showDialogBox">
+    <span
+        >{{ dialogText }}
+        <div id="actions" *ngIf="recipeToValidate">
+            <button class="btn btn-primary" (click)="confirmValidation()" title="Confirmer">
+                <i class="fa-solid fa-check"></i>
+            </button>
+            <button class="btn btn-danger" title="Annuler" (click)="showDialogBox = false">
+                <i class="fa-solid fa-x"></i>
+            </button>
+        </div>
+    </span>
+</div>

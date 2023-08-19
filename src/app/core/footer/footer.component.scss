@@ -6,3 +6,12 @@
 // a {
 //     color: #fff;
 // }
+
+.list-unstyled li a  {
+    text-decoration: none;
+    color: var(--black-color);
+}
+
+.list-unstyled li a:hover {
+    font-weight: bolder;
+}

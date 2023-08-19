@@ -33,14 +33,14 @@
                             ><i class="bi bi-camera-video"></i> Groupes vidéo</a
                         >
                     </li>
-                    <li *ngIf="isConnected === false" class="nav-item">
+                    <li *ngIf="!isConnected" class="nav-item">
                         <a class="nav-link custom-link" routerLink="auth/login" routerLinkActive="active"> Se connecter</a>
                     </li>
-                    <li *ngIf="isConnected === false" class="nav-item">
+                    <li *ngIf="!isConnected " class="nav-item">
                         <a class="nav-link custom-link" routerLink="auth/register" routerLinkActive="active"> S'inscrire</a>
                     </li>
-                    <li *ngIf="isConnected === true && !isAdmin" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li *ngIf="isConnected  && !isAdmin" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i> Profil</a
                         >
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
@@ -52,10 +52,10 @@
                             <li><a class="dropdown-item" href="/" (click)="disconnect()">Se déconnecter</a></li>
                         </ul>
                     </li>
-                    <li *ngIf="isAdmin === true" class="nav-item">
+                    <li *ngIf="isAdmin" class="nav-item">
                         <a class="nav-link admin" routerLink="/admin" routerLinkActive="admin-active">Administration</a>
                     </li>
-                    <li *ngIf="isAdmin === true" class="nav-item">
+                    <li *ngIf="isAdmin" class="nav-item">
                         <a class="nav-link" href="/auth/login" (click)="disconnect()">Se déconnecter</a>
                     </li>
                 </ul>
