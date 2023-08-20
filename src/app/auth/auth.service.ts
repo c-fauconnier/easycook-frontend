@@ -80,11 +80,11 @@ export class AuthService extends BaseService<any> {
         );
     }
 
-    sendPasswordResetEmail(email: FormData): Observable<User> {
+    sendPasswordResetEmail(email: object): Observable<User> {
         return this.http.post<User>(`${this.baseApiURL}/${this.endPoint}/forgotPassword`, email);
     }
 
-    resetPassword(token: string, password: FormData): Observable<User> {
+    resetPassword(token: string, password: object): Observable<User> {
         return this.http.post<User>(`${this.baseApiURL}/${this.endPoint}/resetPassword?token=${token}`, password);
     }
 

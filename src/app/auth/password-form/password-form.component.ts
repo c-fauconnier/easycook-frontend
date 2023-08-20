@@ -45,11 +45,9 @@ export class PasswordFormComponent implements OnInit {
 
         if (this.resetForm.valid) {
             const newPassword = this.resetForm.value.password;
-            const formData = new FormData();
-            formData.append('password', newPassword);
 
             // Envoyer la demande de réinitialisation avec le nouveau mot de passe
-            this.service.resetPassword(this.token, formData).subscribe({
+            this.service.resetPassword(this.token, { password: newPassword }).subscribe({
                 next: (res: User) => {
                     this.isSubmitting = false;
                     // Réinitialiser le formulaire ou rediriger vers une page de succès

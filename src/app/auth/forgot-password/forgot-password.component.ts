@@ -23,11 +23,9 @@ export class ForgotPasswordComponent {
     onSubmit() {
         if (this.resetForm.valid) {
             const email = this.resetForm.value.email;
-            const formData = new FormData();
-            formData.append('email', email);
 
             this.isSubmitting = true;
-            this.service.sendPasswordResetEmail(formData).subscribe({
+            this.service.sendPasswordResetEmail({ email: email }).subscribe({
                 next: () => {
                     this.isSuccess = true;
                     this.isSubmitting = false;
