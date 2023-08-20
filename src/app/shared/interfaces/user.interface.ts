@@ -5,6 +5,7 @@ import { Recipe } from './recipe.interface';
 import { Restriction } from './restriction.interface';
 
 export interface User {
+    id?: string;
     name: string;
     surname: string;
     nickname: string;

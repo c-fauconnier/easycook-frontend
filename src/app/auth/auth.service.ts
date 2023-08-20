@@ -72,6 +72,8 @@ export class AuthService extends BaseService<any> {
             }),
             map((res: AccessToken | any) => {
                 if (res.access_token) {
+                    console.log('AUTH SERVICE');
+
                     this.user = jwt_decode(res.access_token);
                     this.isConnected$.next(true);
                 }

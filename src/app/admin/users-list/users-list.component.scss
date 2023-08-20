@@ -3,3 +3,14 @@
     background-color: var(--cream-color) !important;
     
 }
+#actions {
+    display: flex;
+    gap: .5em;
+}
+
+.dialog {
+    background-color: white;
+    color: var(--black-color);
+    padding: 1em;
+
+}

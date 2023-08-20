@@ -40,7 +40,7 @@
                     >
                         <i class="fa-solid fa-check"></i>
                     </button>
-                    <button class="btn btn-danger" title="Supprimer">
+                    <button class="btn btn-danger" title="Supprimer" (click)="recipe ? onDeleteRecipe(recipe) : ''">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                     <button class="btn btn-primary" title="Aller vers la recette" (click)="goToRecipe(recipe.id)">
@@ -56,7 +56,7 @@
     <span
         >{{ dialogText }}
         <div id="actions" *ngIf="recipeToValidate">
-            <button class="btn btn-primary" (click)="confirmValidation()" title="Confirmer">
+            <button class="btn btn-primary" (click)="recipeToValidate.id ? confirmValidation() : confirmDelete()" title="Confirmer">
                 <i class="fa-solid fa-check"></i>
             </button>
             <button class="btn btn-danger" title="Annuler" (click)="showDialogBox = false">

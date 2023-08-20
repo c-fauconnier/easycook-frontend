@@ -2,6 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { forkJoin } from 'rxjs';
+import { DecodedToken } from 'src/app/shared/interfaces/decoded-token.interface';
 
 @Component({
     selector: 'ec-connection-state-handler',
@@ -10,7 +11,7 @@ import { forkJoin } from 'rxjs';
 })
 export class ConnectionStateHandlerComponent implements OnInit {
     isConnected: boolean = false;
-    user: User = {} as User;
+    user: DecodedToken = {} as DecodedToken;
     authService: AuthService = {} as AuthService;
 
     constructor(private inject: Injector) {
@@ -24,8 +25,8 @@ export class ConnectionStateHandlerComponent implements OnInit {
             isConnected: this.authService.isConnected$,
             user: this.authService.user$,
         }).subscribe({
-            next: (res: { isConnected: boolean; user: User }) => {
-                this.user = res.user;
+            next: (res: { isConnected: boolean; user: DecodedToken | null }) => {
+                this.user = res.user as DecodedToken;
                 this.isConnected = res.isConnected;
             },
         });

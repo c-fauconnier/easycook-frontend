@@ -84,4 +84,12 @@ export class AdminPannelComponent implements OnInit {
             },
         });
     }
+
+    onDeletedUser(): void {
+        this.usersService.getAll().subscribe({
+            next: (users: User[]) => {
+                this.users = users;
+            },
+        });
+    }
 }

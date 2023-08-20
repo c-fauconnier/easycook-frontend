@@ -28,4 +28,8 @@ export abstract class BaseService<T> {
     delete(id: string): Observable<unknown> {
         return this.http.delete<unknown>(`${this.baseApiURL}/${this.endPoint}/${id}`);
     }
+
+    getByKeyName(key: string, name: string): Observable<T[]> {
+        return this.http.get<T[]>(`${this.baseApiURL}/${this.endPoint}?key=${key}&name=${name}`);
+    }
 }

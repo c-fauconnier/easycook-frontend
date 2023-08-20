@@ -21,6 +21,7 @@ export class RecipesListComponent {
     showDialogBox: boolean = false;
     dialogText: string = '';
     recipeToValidate: Recipe = {} as Recipe;
+    recipeToDelete: Recipe = {} as Recipe;
 
     constructor(private router: Router, private service: RecipesService) {}
 
@@ -53,6 +54,12 @@ export class RecipesListComponent {
         this.recipeToValidate = recipe;
     }
 
+    onDeleteRecipe(recipe: Recipe): void {
+        this.showDialogBox = true;
+        this.dialogText = `Voulez-vous supprimer cette recette ? (${recipe.title})`;
+        this.recipeToDelete = recipe;
+    }
+
     confirmValidation(): void {
         this.service.update(this.recipeToValidate.id, { isValid: true }).subscribe({
             next: () => {
@@ -61,6 +68,18 @@ export class RecipesListComponent {
                 this.onlyValidedRecipes = 'all';
                 this.recipeToValidate = {} as Recipe;
                 this.actionOnRecipe.emit('validation');
+            },
+        });
+    }
+
+    confirmDelete(): void {
+        this.service.delete(this.recipeToDelete.id).subscribe({
+            next: () => {
+                this.showDialogBox = false;
+                this.dialogText = '';
+                this.onlyValidedRecipes = 'all';
+                this.recipeToDelete = {} as Recipe;
+                this.actionOnRecipe.emit('delete');
             },
         });
     }

@@ -19,9 +19,17 @@ import { ConnectionStateHandlerComponent } from './components/base/connection-st
 import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
 import { RouterModule } from '@angular/router';
 import { ErrorRedirectComponent } from './components/error-redirect/error-redirect.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
-    declarations: [InputComponent, DurationPipe, ConnectionStateHandlerComponent, LoginRedirectComponent, ErrorRedirectComponent],
+    declarations: [
+        InputComponent,
+        DurationPipe,
+        ConnectionStateHandlerComponent,
+        LoginRedirectComponent,
+        ErrorRedirectComponent,
+        SearchBarComponent,
+    ],
     imports: [
         CommonModule,
         RouterModule,
@@ -57,6 +65,7 @@ import { ErrorRedirectComponent } from './components/error-redirect/error-redire
         MatProgressSpinnerModule,
         LoginRedirectComponent,
         ErrorRedirectComponent,
+        SearchBarComponent,
     ],
 })
 export class SharedModule {}

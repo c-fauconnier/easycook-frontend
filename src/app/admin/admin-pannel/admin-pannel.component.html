@@ -5,7 +5,7 @@
 </div>
 
 <div class="list">
-    <ec-users-list [users]="users" *ngIf="showUsersList"></ec-users-list>
+    <ec-users-list [users]="users" *ngIf="showUsersList" (userIsDeleted)="onDeletedUser()"></ec-users-list>
     <ec-recipes-list [recipes]="recipes" *ngIf="showRecipesList" (actionOnRecipe)="onActionOnRecipe($event)"></ec-recipes-list>
     <ec-lectures-list [lectures]="lectures" *ngIf="showLecturesList"></ec-lectures-list>
 </div>
