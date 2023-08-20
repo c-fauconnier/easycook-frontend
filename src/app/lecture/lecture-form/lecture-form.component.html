@@ -24,16 +24,30 @@
 
                 <div class="mb-3 d-flex justify-content-between">
                     <button type="button" class="btn btn-primary" (click)="addChapter()">Ajouter un chapitre</button>
-                    <button type="button" class="btn btn-danger" (click)="removeAllChapters()">Supprimer tous les chapitres</button>
-                </div>
-                <!-- Ici les champs pour les chapitres en utilisant un formArray -->
-                <div formArrayName="chapters">
-                    <div *ngFor="let chapter of _lecture.chapters; let i = index" class="mb-3">
-                        <ec-chapter-form [index]="i" [chapter]="chapter" (deleteChapter)="removeChapter(i)"></ec-chapter-form>
-                    </div>
+                    <button *ngIf="_lecture.chapters.length != 0" type="button" class="btn btn-danger" (click)="removeAllChapters()">
+                        Supprimer tous les chapitres
+                    </button>
                 </div>
 
+                <button
+                    *ngIf="_lecture.chapters.length != 0"
+                    type="button"
+                    class="btn btn-primary btn-block mb-3"
+                    (click)="toggleContent()"
+                >
+                    <i class="fa-solid" [ngClass]="{ 'fa-chevron-down': showContent, 'fa-chevron-right': !showContent }"></i>
+                    {{ buttonText }}
+                </button>
+                <div *ngIf="showContent">
+                    <!-- Ici les champs pour les chapitres en utilisant un formArray -->
+                    <div formArrayName="chapters">
+                        <div *ngFor="let chapter of _lecture.chapters; let i = index" class="mb-3">
+                            <ec-chapter-form [index]="i" [chapter]="chapter" (deleteChapter)="removeChapter(i)"></ec-chapter-form>
+                        </div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary" [disabled]="lectureForm.invalid">Enregistrer le cours</button>
+                <div *ngIf="errors" class="error">{{ errors }}</div>
             </form>
         </div>
     </div>

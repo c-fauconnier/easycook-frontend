@@ -7,7 +7,6 @@ import { LectureListComponent } from './lecture-list/lecture-list.component';
 import { LectureRoutingModule } from './lecture-routing.module';
 import { LectureElementComponent } from './lecture-element/lecture-element.component';
 import { LectureDetailsComponent } from './lecture-details/lecture-details.component';
-import { FormsModule } from '@angular/forms';
 import { ChapterFormComponent } from './chapter-form/chapter-form.component';
 import { ParagraphFormComponent } from './paragraph-form/paragraph-form.component';
 
@@ -21,6 +20,6 @@ import { ParagraphFormComponent } from './paragraph-form/paragraph-form.componen
         ChapterFormComponent,
         ParagraphFormComponent,
     ],
-    imports: [CommonModule, SharedModule, LectureRoutingModule, FormsModule],
+    imports: [CommonModule, SharedModule, LectureRoutingModule],
 })
 export class LectureModule {}

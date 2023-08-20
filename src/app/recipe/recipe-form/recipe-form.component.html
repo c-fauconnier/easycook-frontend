@@ -1,0 +1,100 @@
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Créer une recette</p>
+            <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titre</label>
+                    <input type="text" id="title" class="form-control" formControlName="title" required />
+                    <div *ngIf="recipeForm.get('title')?.invalid" class="text-danger small italic">Un titre est nécessaire.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label"
+                        >Description
+                        <i
+                            class="bi bi-info-circle-fill pe-auto"
+                            matTooltip="Il s'agit du résumé de votre recette"
+                            [matTooltipPosition]="'above'"
+                        ></i
+                    ></label>
+                    <textarea id="description" class="form-control" formControlName="description" required></textarea>
+                    <div *ngIf="recipeForm.get('description')?.invalid" class="text-danger small italic">
+                        Une description est nécessaire.
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="duration" class="col-sm-2 col-form-label">Durée estimée (en minutes)</label>
+                    <div class="col-sm-10">
+                        <input type="number" id="duration" class="form-control" min="0" formControlName="duration" required />
+                        <div
+                            *ngIf="
+                                recipeForm.get('duration')?.invalid &&
+                                (recipeForm.get('duration')?.dirty || recipeForm.get('duration')?.touched)
+                            "
+                            class="text-danger small font-italic"
+                        >
+                            Veuillez entrer une durée valide.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="difficulty" class="col-sm-2 col-form-label">Difficulté: </label>
+                    <div class="col-sm-10">
+                        <select id="difficulty" class="form-select" formControlName="difficulty">
+                            <option *ngFor="let difficulty of difficultyOptions" [value]="difficulty.value">{{ difficulty.label }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="media" class="form-label">Image de la recette</label>
+                    <input
+                        type="file"
+                        accept=".png, .jpeg, .jpg"
+                        id="media"
+                        class="form-control"
+                        formControlName="media"
+                        (change)="onFileSelected($event)"
+                    />
+                </div>
+
+                <div class="mb-3 d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary" (click)="addStep()">Ajouter une étape</button>
+                    <button *ngIf="recipeForm.value.steps.length != 0" type="button" class="btn btn-danger" (click)="removeAllSteps()">
+                        Supprimer toutes les étapes
+                    </button>
+                </div>
+
+                <button
+                    *ngIf="recipeForm.value.steps.length != 0"
+                    type="button"
+                    class="btn btn-primary btn-block mb-3"
+                    (click)="toggleContent()"
+                >
+                    <i class="fa-solid" [ngClass]="{ 'fa-chevron-down': showContent, 'fa-chevron-right': !showContent }"></i>
+                    {{ buttonText }}
+                </button>
+                <div *ngIf="showContent">
+                    <!-- Ici les champs pour les chapitres en utilisant un formArray -->
+                    <div formArrayName="steps">
+                        <div *ngFor="let stepControl of getStepsControls(); let i = index" class="mb-3">
+                            <div class="step-container" [formGroupName]="i">
+                                <ec-step-form
+                                    [index]="i + 1"
+                                    [step]="stepControl.value"
+                                    (stepChange)="updateStep($event, i)"
+                                    (deleteStep)="removeStep(i)"
+                                ></ec-step-form>
+                            </div>
+                            <!-- <ec-step-form [index]="i" [step]="stepControl.value"></ec-step-form> -->
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="recipeForm.invalid">Enregistrer la recette</button>
+                <div *ngIf="errors" class="error">{{ errors }}</div>
+            </form>
+        </div>
+    </div>
+</div>

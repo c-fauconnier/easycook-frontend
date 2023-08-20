@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Message } from 'src/app/shared/interfaces/message.interface';
 import { VideoService } from '../service/video.service';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/app/environments/environment.video';
 
 // export const ENV_RTCPeerConfiguration = environment.RTCPeerConfiguration;
 

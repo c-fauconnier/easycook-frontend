@@ -1,5 +1,5 @@
 <div class="container my-5">
-    <div class="card">
+    <div class="card chapter">
         <div class="card-body">
             <!-- ... Autres champs de formulaire -->
             <h4>Chapitre n°: {{ _chapter.index }}</h4>
@@ -20,15 +20,23 @@
                 <label for="media" class="form-label">Lien vidéo YouTube (url):</label>
                 <input type="text" id="media" class="form-control" [(ngModel)]="_chapter.media" (ngModelChange)="onMediaChange($event)" />
             </div>
+
             <div class="mb-3 d-flex justify-content-between">
                 <button type="button" class="btn btn-primary" (click)="addParagraph()">Ajouter un paragraphe</button>
                 <button type="button" class="btn btn-danger" (click)="removeAllParagraphs()">Supprimer tous les paragraphes</button>
             </div>
-            <div *ngFor="let paragraph of _chapter.paragraphs; let i = index" class="mb-3">
-                <ec-paragraph-form [index]="i" [paragraph]="paragraph" (deleteParagraph)="removeParagraph(i)"></ec-paragraph-form>
+            <button *ngIf="_chapter.paragraphs.length != 0" type="button" class="btn btn-primary btn-block mb-3" (click)="toggleContent()">
+                <i class="fa-solid" [ngClass]="{ 'fa-chevron-down': showContent, 'fa-chevron-right': !showContent }"></i>
+                {{ buttonText }}
+            </button>
+
+            <div *ngIf="showContent">
+                <div *ngFor="let paragraph of _chapter.paragraphs; let i = index" class="mb-3">
+                    <ec-paragraph-form [index]="i" [paragraph]="paragraph" (deleteParagraph)="removeParagraph(i)"></ec-paragraph-form>
+                </div>
             </div>
 
-            <button class="btn btn-secondary" (click)="onDelete()">Supprimer le chapitre</button>
+            <button class="btn btn-warning" (click)="onDelete()">Supprimer le chapitre</button>
         </div>
     </div>
 </div>

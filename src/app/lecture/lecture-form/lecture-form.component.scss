@@ -1,36 +1,11 @@
-.forms {
+.error {
+    color: red;
+    text-align: center;
+    //margin-top: 5%;
+}
+.btn-block,
+.btn-block:active {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex: 1 2;
-    height: 80%;
-    padding-left: 1em;
-    padding-right: 1em;
-    gap: 2em;
+    background-color: gray;
+    border-color: gray;
 }
-
-.lectureForm {
-    width: 15%;
-    padding: 1em;
-    div {
-        display: flex;
-        flex-direction: column;
-        gap: .5em;
-        padding: 1em;
-    }  
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    .newChapter  {
-        margin-top: auto;
-    }
-
-    box-shadow: var(--mat-box-shadow);
-    border-radius: var(--border-radius);
-
-}
-
-.chapterForm {
-    width: calc(85% - 4em)
-}
-

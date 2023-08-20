@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BaseService } from '../shared/services/base-http.services';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, map, tap, BehaviorSubject } from 'rxjs';
@@ -53,7 +53,7 @@ export class AuthService extends BaseService<any> {
         return '';
     }
 
-    // Register method eexpecting to receive a registerDto object and send it to the backend
+    // Inscription qui reçoit un formulaire User du frontend et peut renvoyer un tableau d'erreurs ou l'objet créé
     register(dto: registerDto): Observable<User | []> {
         return this.http.post<User | []>(`${this.baseApiURL}/users`, dto);
     }
@@ -82,8 +82,16 @@ export class AuthService extends BaseService<any> {
         );
     }
 
+    sendPasswordResetEmail(email: object): Observable<User> {
+        return this.http.post<User>(`${this.baseApiURL}/${this.endPoint}/forgotPassword`, email);
+    }
+
+    resetPassword(token: string, password: object): Observable<User> {
+        return this.http.post<User>(`${this.baseApiURL}/${this.endPoint}/resetPassword?token=${token}`, password);
+    }
+
     /*
-     * Logout method which removes localStorage and connected state as well as user$ subject
+     * Déconnecte entièrement et supprime les observables + localStorage
      */
     disconnect() {
         localStorage.removeItem('easycook_token');

@@ -20,6 +20,12 @@ import { LoginRedirectComponent } from './components/login-redirect/login-redire
 import { RouterModule } from '@angular/router';
 import { ErrorRedirectComponent } from './components/error-redirect/error-redirect.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { FormErrorComponent } from './components/form-error/form-error.component';
+import { ButtonCreateComponent } from './components/button-create/button-create.component';
+import { CguComponent } from './components/cgu/cgu.component';
+import { FormErrorComponent } from './components/form-error/form-error.component';
+import { CguComponent } from './components/cgu/cgu.component';
+import { ButtonCreateComponent } from './components/button-create/button-create.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +35,9 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
         LoginRedirectComponent,
         ErrorRedirectComponent,
         SearchBarComponent,
+        FormErrorComponent,
+        CguComponent,
+        ButtonCreateComponent,
     ],
     imports: [
         CommonModule,
@@ -46,6 +55,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
         MatRadioModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
+        FormsModule,
     ],
     exports: [
         ReactiveFormsModule,
@@ -66,6 +76,9 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
         LoginRedirectComponent,
         ErrorRedirectComponent,
         SearchBarComponent,
+        FormErrorComponent,
+        ButtonCreateComponent,
+        FormsModule,
     ],
 })
 export class SharedModule {}

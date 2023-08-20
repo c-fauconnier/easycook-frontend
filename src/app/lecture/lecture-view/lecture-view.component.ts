@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 })
 export class LectureViewComponent implements OnInit {
     lectures: Lecture[] = [];
+    url: string = '/lecture/form';
+    text: string = 'Créer un cours';
 
-    constructor(private service: LecturesService, private auth: AuthService, private router: Router) {}
+    constructor(private service: LecturesService, private auth: AuthService) {}
 
     isConnected: boolean = false;
     isAdmin: boolean = this.auth.isAdmin();
@@ -32,15 +34,5 @@ export class LectureViewComponent implements OnInit {
                 },
             });
         }
-
-        // Setting our admin boolean
-        // if (this.auth.user.role === 'admin') {
-        //     this.isAdmin = true;
-        // }
-    }
-
-    // Redirect only accessible for admin
-    formRedirect() {
-        this.router.navigateByUrl('/lecture/form');
     }
 }
