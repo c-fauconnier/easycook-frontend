@@ -9,6 +9,7 @@ export interface Recipe {
     description: string;
     difficulty: number;
     likes: number | null;
+    media: string;
     isValid: boolean; // recette approuvée par l'admin
     user?: User;
     steps: Step[];

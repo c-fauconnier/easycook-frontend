@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/app/environments/environment.video';
 import { Message } from 'src/app/shared/interfaces/message.interface';
 
 export const WS_ENDPOINT = environment.wsEndpoint; // wsEndpoint: 'ws://localhost:8081'

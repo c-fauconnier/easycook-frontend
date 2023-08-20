@@ -18,6 +18,13 @@ export class ChapterFormComponent {
     }
     @Output() deleteChapter: EventEmitter<void> = new EventEmitter<void>();
 
+    showContent: boolean = true;
+    buttonText: string = 'Cacher les paragraphes';
+
+    toggleContent() {
+        this.showContent = !this.showContent;
+        this.buttonText = this.showContent ? 'Cacher les paragraphes' : 'Afficher les paragraphes';
+    }
     // Ajouter un paragraphe dans le tableau de chapterForm.paragraphs
     addParagraph() {
         const paragraphs = this._chapter.paragraphs;
@@ -61,10 +68,6 @@ export class ChapterFormComponent {
     onMediaChange(media: any): void {
         this._chapter.media = media;
     }
-
-    // updateChapter(paragraph: Paragraph): void {
-    //     this._chapter.paragraphs;
-    // }
 
     onDelete(): void {
         this.deleteChapter.emit();

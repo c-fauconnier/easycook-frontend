@@ -18,7 +18,7 @@ export class LecturesService extends BaseService<Lecture> {
         return this.http.get<boolean>(`${this.baseApiURL}/${this.endPoint}/title/${title}`);
     }
 
-    addLecture(lecture: Lecture, admin: User): Observable<Lecture> {
-        return this.http.post<Lecture>(`${this.baseApiURL}/${this.endPoint}`, { lecture, admin });
+    addLecture(lecture: Lecture): Observable<Lecture> {
+        return this.http.post<Lecture>(`${this.baseApiURL}/${this.endPoint}`, lecture);
     }
 }

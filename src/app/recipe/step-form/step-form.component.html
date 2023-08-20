@@ -1,0 +1,17 @@
+<div class="container my-2">
+    <div class="card step">
+        <div class="card-body">
+            <div class="form-group" [formGroup]="stepForm">
+                <h4>Étape n°: {{ index }}</h4>
+                <label for="title" class="form-label">Sous-titre</label>
+                <input type="text" id="title" class="form-control" formControlName="title" required />
+                <div *ngIf="stepForm.get('title')?.invalid" class="text-danger small italic">Le champ Sous-titre est requis.</div>
+
+                <label for="content">Contenu de l'étape :</label>
+                <textarea id="explanation" class="form-control" formControlName="explanation" required></textarea>
+                <div *ngIf="stepForm.get('explanation')?.invalid" class="text-danger small italic">Le champ ne peut être vide.</div>
+            </div>
+            <button class="btn btn-secondary" (click)="onDelete()">Supprimer</button>
+        </div>
+    </div>
+</div>

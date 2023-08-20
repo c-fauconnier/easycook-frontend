@@ -19,9 +19,21 @@ import { ConnectionStateHandlerComponent } from './components/base/connection-st
 import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
 import { RouterModule } from '@angular/router';
 import { ErrorRedirectComponent } from './components/error-redirect/error-redirect.component';
+import { FormErrorComponent } from './components/form-error/form-error.component';
+import { CguComponent } from './components/cgu/cgu.component';
+import { ButtonCreateComponent } from './components/button-create/button-create.component';
 
 @NgModule({
-    declarations: [InputComponent, DurationPipe, ConnectionStateHandlerComponent, LoginRedirectComponent, ErrorRedirectComponent],
+    declarations: [
+        InputComponent,
+        DurationPipe,
+        ConnectionStateHandlerComponent,
+        LoginRedirectComponent,
+        ErrorRedirectComponent,
+        FormErrorComponent,
+        CguComponent,
+        ButtonCreateComponent,
+    ],
     imports: [
         CommonModule,
         RouterModule,
@@ -38,6 +50,7 @@ import { ErrorRedirectComponent } from './components/error-redirect/error-redire
         MatRadioModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
+        FormsModule,
     ],
     exports: [
         ReactiveFormsModule,
@@ -57,6 +70,9 @@ import { ErrorRedirectComponent } from './components/error-redirect/error-redire
         MatProgressSpinnerModule,
         LoginRedirectComponent,
         ErrorRedirectComponent,
+        FormErrorComponent,
+        ButtonCreateComponent,
+        FormsModule,
     ],
 })
 export class SharedModule {}

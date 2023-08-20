@@ -4,7 +4,7 @@ import { LecturesService } from '../lectures.service';
 import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Chapter } from '../models/chapter.model';
 import { Lecture } from '../models/lecture.model';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'ec-lecture-form',
     templateUrl: './lecture-form.component.html',
@@ -13,7 +13,26 @@ import { Lecture } from '../models/lecture.model';
 export class LectureFormComponent implements OnInit {
     lectureForm: FormGroup;
     _lecture: Lecture = new Lecture();
-    constructor(private fb: FormBuilder) {}
+    errors: {};
+    showContent: boolean = true;
+    buttonText: string = 'Cacher les chapitres';
+
+    toggleContent() {
+        this.showContent = !this.showContent;
+        this.buttonText = this.showContent ? 'Cacher les chapitres' : 'Afficher les chapitres';
+    }
+
+    constructor(private fb: FormBuilder, private service: LecturesService, private toastr: ToastrService) {}
+
+    showCustomNotification() {
+        this.toastr.success('Cours créé !', 'Succès', {
+            positionClass: 'toast-center', // Définit la position au centre en haut
+            timeOut: 3000, // Durée d'affichage de la notification en millisecondes (3 secondes dans cet exemple)
+            progressBar: true, // Affiche une barre de progression
+            progressAnimation: 'increasing', // Animation de la barre de progression
+        });
+    }
+
     ngOnInit(): void {
         this.initForm();
     }
@@ -30,25 +49,12 @@ export class LectureFormComponent implements OnInit {
 
     // Ajouter un paragraphe dans le tableau de lectureForm.chapters
     addChapter() {
-        //const chapters = this.lectureForm.get('chapters') as FormArray;
-        //chapters.push(this.createChapter());
-
         let chapters = this._lecture.chapters;
         chapters.push(this.createChapter());
     }
 
     // supprime un élément du tableau sur base de son index
     removeChapter(index: number) {
-        // const chapters = this.lectureForm.get('chapters') as FormArray;
-        // chapters.removeAt(index);
-
-        // // Recalculer les index des chapitres restants
-        // for (let i = 0; i < chapters.length; i++) {
-        //     chapters
-        //         .at(i)
-        //         .get('index')
-        //         ?.setValue(i + 1);
-        // }
         let paragraphs = this._lecture.chapters;
 
         if (index >= 0 && index < paragraphs.length) {
@@ -63,9 +69,6 @@ export class LectureFormComponent implements OnInit {
 
     // supprime le tableau de chapitres
     removeAllChapters() {
-        // const chapters = this.lectureForm.get('chapters') as FormArray;
-        // while (chapters.length !== 0) {
-        //     chapters.removeAt(0);
         const userConfirm = confirm('Êtes-vous sûr de vouloir supprimer tous les chapitres ?');
         if (userConfirm) {
             this._lecture.chapters = [];
@@ -74,18 +77,8 @@ export class LectureFormComponent implements OnInit {
 
     // getter du tableau des chapitres
     chapters(): Chapter[] {
-        //return this.lectureForm.get('chapters') as FormArray;
         return this._lecture.chapters;
     }
-
-    // private createChapter(): FormGroup {
-    //     return this.fb.group({
-    //         title: ['', Validators.required],
-    //         isCompleted: [false],
-    //         media: [''],
-    //         paragraphs: this.fb.array([]),
-    //     });
-    // }
 
     private createChapter(): Chapter {
         return new Chapter();
@@ -94,10 +87,21 @@ export class LectureFormComponent implements OnInit {
     onSubmit(): void {
         this.lectureForm.value.chapters = this._lecture.chapters;
         if (this.lectureForm.valid) {
-            const lecture: Lecture = this.lectureForm.value;
+            const lecture = this.lectureForm.value;
             console.log(lecture);
 
-            // Faire quelque chose avec la conférence saisie, par exemple l'envoyer au serveur
+            this.service.addLecture(lecture).subscribe({
+                next: (res: Lecture) => {
+                    this.showCustomNotification();
+                    location.reload();
+                    return;
+                },
+                error: (err: any) => {
+                    console.log(err.error.errors);
+                    this.errors = err.error.errors[0].message;
+                    return;
+                },
+            });
         }
     }
 }

@@ -13,6 +13,7 @@ import { AuthInterceptorService } from './auth/interceptors/auth.interceptor';
 import { FooterComponent } from './core/footer/footer.component';
 import { registerLocaleData } from '@angular/common';
 import * as fr from '@angular/common/locales/fr';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
     declarations: [AppComponent, NavbarComponent, FooterComponent],
     imports: [
@@ -24,6 +25,7 @@ import * as fr from '@angular/common/locales/fr';
         SharedModule,
         LectureModule,
         FormsModule,
+        ToastrModule.forRoot(),
     ],
     providers: [
         {

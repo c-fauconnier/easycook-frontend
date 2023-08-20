@@ -40,6 +40,7 @@ body {
     flex: 1; /* Permet d'occuper tout l'espace interne */
     color: #fff;
     min-height: auto; /* Hauteur minimale de 100vh - 100px */
+    margin-top: 82px; /* Hauteur de la navbar en py-3 */
 }
 
 /* Modifier la couleur des boutons */
@@ -75,4 +76,15 @@ body {
 .custom-link:active {
     background-color: #88e188;
     color: white;
+}
+
+.toast-container {
+    position: fixed !important;
+    top: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+}
+
+.italic {
+    font-style: italic;
 }
