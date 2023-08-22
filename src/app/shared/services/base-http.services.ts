@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Upload } from '../interfaces/upload.interface';
-import { environment } from '../../environments/environment.prod';
+import { environment } from 'src/app/environments/environment.prod';
 
 @Injectable()
 export abstract class BaseService<T> {

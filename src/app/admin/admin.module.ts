@@ -6,7 +6,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { LecturesListComponent } from './lectures-list/lectures-list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [AdminPannelComponent, UsersListComponent, RecipesListComponent, LecturesListComponent],

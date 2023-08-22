@@ -37,6 +37,7 @@ export class LectureFormComponent implements OnInit {
         this.initForm();
     }
 
+    // initialisation du formulaire avec des données
     initForm(): void {
         this.lectureForm = this.fb.group({
             title: ['', Validators.required],
@@ -80,6 +81,7 @@ export class LectureFormComponent implements OnInit {
         return this._lecture.chapters;
     }
 
+    // créé une instance Chapter
     private createChapter(): Chapter {
         return new Chapter();
     }
@@ -93,7 +95,7 @@ export class LectureFormComponent implements OnInit {
             this.service.addLecture(lecture).subscribe({
                 next: (res: Lecture) => {
                     this.showCustomNotification();
-                    location.reload();
+                    this.lectureForm.reset();
                     return;
                 },
                 error: (err: any) => {

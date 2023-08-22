@@ -26,7 +26,7 @@
                         <a class="nav-link" routerLink="recipe" routerLinkActive="active"><i class="bi bi-journal"></i> Recettes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-image"></i> Publications</a>
+                        <a class="nav-link" routerLink="post" routerLinkActive="active"><i class="bi bi-image"></i> Publications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" routerLink="video" routerLinkActive="active"
@@ -36,11 +36,11 @@
                     <li *ngIf="!isConnected" class="nav-item">
                         <a class="nav-link custom-link" routerLink="auth/login" routerLinkActive="active"> Se connecter</a>
                     </li>
-                    <li *ngIf="!isConnected " class="nav-item">
+                    <li *ngIf="!isConnected" class="nav-item">
                         <a class="nav-link custom-link" routerLink="auth/register" routerLinkActive="active"> S'inscrire</a>
                     </li>
-                    <li *ngIf="isConnected  && !isAdmin" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li *ngIf="isConnected && !isAdmin" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i> Profil</a
                         >
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
@@ -49,7 +49,7 @@
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="/" (click)="disconnect()">Se déconnecter</a></li>
+                            <li><a class="dropdown-item" routerLink="/" (click)="disconnect()">Se déconnecter</a></li>
                         </ul>
                     </li>
                     <li *ngIf="isAdmin" class="nav-item">

@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RecipesService } from '../recipes.service';
 import { Upload } from 'src/app/shared/interfaces/upload.interface';
+import { switchMap } from 'rxjs';
+import { Recipe } from 'src/app/shared/interfaces/recipe.interface';
 
 @Component({
     selector: 'app-recipe-form',
@@ -54,6 +56,7 @@ export class RecipeFormComponent implements OnInit {
             difficulty: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
             media: [null],
             steps: this.fb.array([]),
+            likes: [0],
         });
     }
 
@@ -118,15 +121,33 @@ export class RecipeFormComponent implements OnInit {
     async onSubmit(): Promise<void> {
         if (this.recipeForm.valid) {
             let recipe = this.recipeForm.value;
+            console.log(recipe);
+
             const formData = new FormData();
             if (this.selectedFile) {
                 formData.append('media', this.selectedFile);
-                this.service.uploadImage(formData, 'recipes').subscribe({
-                    next: (res: Upload) => {
-                        console.log(res.url);
-                        recipe.media = res;
-                    },
-                });
+                this.service
+                    .uploadImage(formData, 'recipes')
+                    .pipe(
+                        switchMap((res: Upload) => {
+                            recipe.media = res.url;
+                            return this.service.create(recipe);
+                        })
+                    )
+                    .subscribe({
+                        next: (recipe: Recipe) => {
+                            this.removeAllSteps();
+                            this.recipeForm.reset();
+                            this.toastr.success('Recette créée');
+                        },
+                    });
+
+                // .subscribe({
+                //     next: (res: Upload) => {
+                //         console.log(res.url);
+                //         recipe.media = res;
+                //     },
+                // });
                 // this.service.addRecipe(recipe).subscribe({
                 //     next: (res: boolean){
                 //         console.log(res);

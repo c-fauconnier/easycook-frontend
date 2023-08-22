@@ -16,6 +16,7 @@ export class PasswordFormComponent implements OnInit {
     resetForm: FormGroup;
     isSubmitting = false;
     token: string;
+    response: string;
 
     constructor(private fb: FormBuilder, private route: ActivatedRoute, private service: AuthService) {
         this.resetForm = this.fb.group(
@@ -51,7 +52,8 @@ export class PasswordFormComponent implements OnInit {
                 next: (res: User) => {
                     this.isSubmitting = false;
                     // Réinitialiser le formulaire ou rediriger vers une page de succès
-                    this.resetForm.reset();
+                    this.response = 'Votre mot de passe a été modifié';
+                    //this.resetForm.reset();
                 },
                 error: (err: HttpErrorResponse) => {
                     this.isSubmitting = false;

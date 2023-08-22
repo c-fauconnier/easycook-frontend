@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { registerDto } from 'src/app/shared/dto/register.dto';
-import { User } from 'src/app/shared/interfaces/user.interface';
 import { FormBuilder, Validators } from '@angular/forms';
 import { confirmEqualValidator } from 'src/app/shared/validators/confirm-equal.validator';
 import { createPasswordStrengthValidator } from 'src/app/shared/validators/password-strength.validator';
-import { Observable, map } from 'rxjs';
 
 @Component({
     selector: 'ec-register',
@@ -78,7 +75,6 @@ export class RegisterComponent {
         };
         this.auth.register(newUser).subscribe({
             next: (res: any) => {
-                console.log(res);
                 if (Array.isArray(res)) {
                     this.registerError = res[0].message;
                 } else {

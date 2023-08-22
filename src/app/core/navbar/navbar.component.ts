@@ -17,9 +17,11 @@ export class NavbarComponent implements OnInit {
         (this.auth as AuthService).isConnected$.subscribe({
             next: (isConnected: boolean) => {
                 this.isConnected = isConnected;
+                if (isConnected) {
+                    this.id = this.auth.user?.id || '';
+                }
             },
         });
-        this.id = this.auth.user.id;
     }
 
     disconnect() {
