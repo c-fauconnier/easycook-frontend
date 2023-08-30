@@ -5,7 +5,10 @@
                 <h1 class="card-title">{{ lecture.title }}</h1>
                 <p class="card-text">{{ lecture.description }}</p>
                 <p class="card-text">
-                    <small class="text-muted">{{ lecture.difficulty }}</small>
+                    <small class="text-muted">Difficulté: {{ lecture.difficulty }}<i class="bi bi-fire"></i></small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">Durée : {{ lecture.duration }} minutes <i class="bi bi-stopwatch"></i></small>
                 </p>
                 <a routerLink="/lectures/selected/{{ lecture.id }}" class="btn btn-primary">Voir ce cours</a>
             </div>

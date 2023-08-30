@@ -16,7 +16,11 @@
                     <td>
                         <a routerLink="/lectures/selected/{{ favorite.lecture.id }}">{{ favorite.lecture.title }}</a>
                     </td>
-                    <td></td>
+                    <td>
+                        <button class="btn btn-danger" title="Retirer des favoris" (click)="deleteFromMyLectures(favorite.lecture.id)">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
