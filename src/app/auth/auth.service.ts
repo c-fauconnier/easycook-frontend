@@ -8,6 +8,7 @@ import { AccessToken } from '../shared/interfaces/access-token.interface';
 import jwt_decode from 'jwt-decode';
 import { registerDto } from '../shared/dto/register.dto';
 import { DecodedToken } from '../shared/interfaces/decoded-token.interface';
+import { Contact } from '../shared/interfaces/contact.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -47,6 +48,10 @@ export class AuthService extends BaseService<any> {
         }
     }
 
+    isEmailVerified(): Observable<boolean> {
+        return this.http.get<boolean>(`${this.baseApiURL}/${this.endPoint}/verified`);
+    }
+
     get token(): string {
         const token = localStorage.getItem('easycook_token');
         if (token) return token;
@@ -84,6 +89,10 @@ export class AuthService extends BaseService<any> {
 
     sendPasswordResetEmail(email: object): Observable<User> {
         return this.http.post<User>(`${this.baseApiURL}/${this.endPoint}/forgotPassword`, email);
+    }
+
+    sendContactEmail(email: Contact): Observable<boolean> {
+        return this.http.post<boolean>(`${this.baseApiURL}/${this.endPoint}/contact`, email);
     }
 
     resetPassword(token: string, password: object): Observable<User> {

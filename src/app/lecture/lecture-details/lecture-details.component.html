@@ -1,1 +1,80 @@
-{{ lecture.description }}
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img *ngIf="lecture.media" src="{{ lecture.media }}" class="img-fluid mb-3" alt="Image de la recette" />
+                    <button
+                        *ngIf="isConnected && !isFavorite"
+                        class="btn btn-outline-warning btn-favorite"
+                        (click)="addToFavorites()"
+                        [disabled]="isLoading"
+                    >
+                        <i class="far fa-star"></i> Ajouter aux favoris
+                    </button>
+                    <button
+                        *ngIf="isConnected && isFavorite"
+                        class="btn btn-outline-danger btn-favorite"
+                        (click)="deleteFromMyFavorites()"
+                        [disabled]="isLoading"
+                    >
+                        <i class="fa-regular fa-square-minus"></i> Retirer des favoris
+                    </button>
+                </div>
+                <div class="col-md-8">
+                    <h1>{{ lecture.title }}</h1>
+                    <p class="text-muted">Difficulté : {{ lecture.difficulty }} <i class="bi bi-fire"></i></p>
+                    <p class="text-muted">Durée : {{ lecture.duration }} minutes <i class="bi bi-stopwatch"></i></p>
+                    <p class="text-muted">Publiée le : {{ lecture.createdAt | date }}</p>
+                    <hr />
+                    <h4>Description :</h4>
+                    <p>{{ lecture.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h1>Chapitres:</h1>
+            <ul class="nav nav-tabs" id="chaptersTabs" role="tablist">
+                <li class="nav-item" *ngFor="let chapter of lecture.chapters; let i = index">
+                    <a
+                        class="nav-link"
+                        [id]="'chapter-tab-' + chapter.index"
+                        (click)="selectChapter(chapter.index)"
+                        [class.active]="selectedChapter === chapter.index || (i === 0 && selectedChapter === null)"
+                        role="tab"
+                        >{{ chapter.index }}. {{ chapter.title }}</a
+                    >
+                </li>
+            </ul>
+            <div class="tab-content" id="chaptersContent">
+                <div
+                    class="tab-pane fade"
+                    [id]="'chapter-' + chapter.index"
+                    *ngFor="let chapter of lecture.chapters"
+                    role="tabpanel"
+                    [class.show]="selectedChapter === chapter.index || (chapter.index === 1 && selectedChapter === null)"
+                    [class.active]="selectedChapter === chapter.index || (chapter.index === 1 && selectedChapter === null)"
+                    [attr.aria-labelledby]="'chapter-tab-' + chapter.index"
+                >
+                    <div class="container p-5">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <h1 class="text-center">Chapitre {{ chapter.index }}</h1>
+                                <div *ngIf="chapter.media" class="iframe-container m-5">
+                                    <iframe [src]="chapter.media | safe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <h3>Explications:</h3>
+                                <div *ngFor="let paragraph of chapter.paragraphs">
+                                    <p class="mt-3">{{ paragraph.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

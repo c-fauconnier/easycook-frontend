@@ -58,6 +58,9 @@
                         formControlName="media"
                         (change)="onFileSelected($event)"
                     />
+                    <div *ngIf="recipeForm.get('media')?.invalid" class="text-danger small font-italic">
+                        Veuillez insérer une photo de présentation.
+                    </div>
                 </div>
 
                 <div class="mb-3 d-flex justify-content-between">
@@ -91,7 +94,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="recipeForm.invalid">Enregistrer la recette</button>
+                <button type="submit" class="btn btn-primary" [disabled]="recipeForm.invalid || getStepsControls().length === 0">
+                    Enregistrer la recette
+                </button>
                 <div *ngIf="errors" class="error">{{ errors }}</div>
             </form>
         </div>

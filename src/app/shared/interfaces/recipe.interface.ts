@@ -11,6 +11,7 @@ export interface Recipe {
     likes: number | null;
     media: string;
     isValid: boolean; // recette approuvée par l'admin
+    duration: number;
     user?: User;
     steps: Step[];
     ingredients: RecipeIngredient[];

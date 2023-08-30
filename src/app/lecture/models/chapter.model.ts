@@ -9,6 +9,7 @@ export class Chapter {
     constructor() {
         this.index = NaN;
         this.title = '';
+        this.media = '';
         this.isCompleted = false;
         this.paragraphs = [];
     }

@@ -18,9 +18,15 @@ export class RecipesService extends BaseService<Recipe> {
         return this.upload(media, collection);
     }
 
-    // addRecipe(recipe: Recipe): Observable<boolean> {
-    //     console.log(recipe);
+    isMyFavorite(id: string): Observable<boolean> {
+        return this.http.get<boolean>(`${this.baseApiURL}/${this.endPoint}/favorites/isfav/${id}`);
+    }
 
-    //     return this.http.post<Recipe>();
-    // }
+    addToFavorites(id: string): Observable<any> {
+        return this.http.post<any>(`${this.baseApiURL}/${this.endPoint}/favorites`, { id: id });
+    }
+
+    deleteFromMyFavorites(id: string): Observable<any> {
+        return this.http.post<any>(`${this.baseApiURL}/${this.endPoint}/deleteFavorite`, { id: id });
+    }
 }

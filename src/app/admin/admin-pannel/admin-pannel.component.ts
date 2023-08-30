@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, tap } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { LecturesService } from 'src/app/lecture/lectures.service';
-import { Lecture } from 'src/app/lecture/models/lecture.model';
 import { RecipesService } from 'src/app/recipe/recipes.service';
+import { Lecture } from 'src/app/shared/interfaces/lecture.interface';
 import { Recipe } from 'src/app/shared/interfaces/recipe.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { UsersService } from 'src/app/user/users.service';
@@ -17,11 +18,17 @@ export class AdminPannelComponent implements OnInit {
     recipes: Recipe[] = [];
     lectures: Lecture[] = [];
 
+    isAdmin: boolean = this.auth.isAdmin();
     showUsersList: boolean = false;
     showRecipesList: boolean = false;
     showLecturesList: boolean = false;
 
-    constructor(private usersService: UsersService, private recipesService: RecipesService, private lecturesService: LecturesService) {}
+    constructor(
+        private usersService: UsersService,
+        private recipesService: RecipesService,
+        private lecturesService: LecturesService,
+        private auth: AuthService
+    ) {}
 
     ngOnInit(): void {
         forkJoin({
@@ -71,6 +78,8 @@ export class AdminPannelComponent implements OnInit {
                 });
 
                 break;
+            // case 'comments':
+            //     this.
             default:
                 this.showUsersList = true;
                 break;
@@ -89,6 +98,14 @@ export class AdminPannelComponent implements OnInit {
         this.usersService.getAll().subscribe({
             next: (users: User[]) => {
                 this.users = users;
+            },
+        });
+    }
+
+    onDeletedLecture(): void {
+        this.lecturesService.getAll().subscribe({
+            next: (lectures: Lecture[]) => {
+                this.lectures = lectures;
             },
         });
     }

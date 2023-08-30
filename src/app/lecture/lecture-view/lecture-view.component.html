@@ -1,9 +1,38 @@
 <!-- Afficher une carte de redirection si l'état n'est pas connecté -->
 <ec-login-redirect *ngIf="!isConnected"></ec-login-redirect>
 
-<div class="view">
-    <ec-lecture-list [lectures]="lectures"></ec-lecture-list>
+<ec-search-bar
+    *ngIf="lectures.length"
+    [service]="service"
+    (result)="onResultChange($event)"
+    (isLoading)="onLoadingLecturesChange($event)"
+></ec-search-bar>
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="isLoading" class="spinner-grow text-primary mb-3 mt-5" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div *ngIf="noResult" class="mt-5">
+        <h2>Mince, aucun résultat pour cette recherche...</h2>
+    </div>
 </div>
 
+<ec-lecture-list
+    *ngIf="isConnected && !isLoading && !noResult"
+    [lectures]="filteredLectures.length ? filteredLectures : lectures"
+></ec-lecture-list>
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="!lectures.length && isConnected" class="mt-5"><h2>Mince, on dirait qu'il n'y a pas de cours...</h2></div>
+</div>
+
+<ec-control-nav
+    *ngIf="lectures.length"
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    (onPreviousClick)="previousPage()"
+    (onNextClick)="nextPage()"
+    (onInputValidate)="inputPage($event)"
+></ec-control-nav>
 <!-- Bouton flottant "Créer un cours" -->
 <ec-button-create *ngIf="isAdmin" [url]="url" [text]="text"></ec-button-create>

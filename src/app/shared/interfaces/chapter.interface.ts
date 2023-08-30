@@ -5,7 +5,7 @@ export interface Chapter {
     index: number;
     title: string;
     isCompleted: boolean;
-    video?: string;
+    media?: string;
     lecture: Lecture;
     paragraphs: Paragraph[];
 }

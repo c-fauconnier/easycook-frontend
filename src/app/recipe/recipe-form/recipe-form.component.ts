@@ -54,7 +54,7 @@ export class RecipeFormComponent implements OnInit {
             description: ['', Validators.required],
             duration: [0, [Validators.required, Validators.min(1)]],
             difficulty: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-            media: [null],
+            media: [null, [Validators.required]],
             steps: this.fb.array([]),
             likes: [0],
         });
@@ -121,7 +121,6 @@ export class RecipeFormComponent implements OnInit {
     async onSubmit(): Promise<void> {
         if (this.recipeForm.valid) {
             let recipe = this.recipeForm.value;
-            console.log(recipe);
 
             const formData = new FormData();
             if (this.selectedFile) {
@@ -141,33 +140,7 @@ export class RecipeFormComponent implements OnInit {
                             this.toastr.success('Recette créée');
                         },
                     });
-
-                // .subscribe({
-                //     next: (res: Upload) => {
-                //         console.log(res.url);
-                //         recipe.media = res;
-                //     },
-                // });
-                // this.service.addRecipe(recipe).subscribe({
-                //     next: (res: boolean){
-                //         console.log(res);
-
-                //     }
-                // });
             }
-
-            // this.service.addRecipe(recipe).subscribe({
-            //     next: (res: Recipe) => {
-            //         this.showCustomNotification();
-            //         location.reload();
-            //         return;
-            //     },
-            //     error: (err: any) => {
-            //         console.log(err.error.errors);
-            //         this.errors = err.error.errors[0].message;
-            //         return;
-            //     },
-            // });
         }
     }
 }

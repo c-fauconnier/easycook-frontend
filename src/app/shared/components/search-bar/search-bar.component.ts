@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject, auditTime, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { BaseService } from '../../services/base-http.services';
 
@@ -10,7 +10,8 @@ import { BaseService } from '../../services/base-http.services';
 export class SearchBarComponent<T> implements OnInit {
     @Input() service: BaseService<T>;
     @Input() key: string = 'title';
-    @Output() result: T[];
+    @Output() result: EventEmitter<{ input: any; items: T[] }> = new EventEmitter<{ input: any; items: T[] }>();
+    @Output() isLoading: EventEmitter<boolean> = new EventEmitter<boolean>(false);
     search$ = new Subject();
 
     value: string = '';
@@ -24,16 +25,23 @@ export class SearchBarComponent<T> implements OnInit {
             .pipe(
                 auditTime(200),
                 map((event: any) => {
-                    return event.target.value;
+                    this.isLoading.emit(true);
+                    return event;
                 }),
-                debounceTime(1000),
+                debounceTime(500),
                 distinctUntilChanged(),
                 switchMap((text: string) => {
                     return this.service.getByKeyName(this.key, text);
                 })
             )
             .subscribe((res: T[]) => {
-                console.log(res);
+                this.isLoading.emit(false);
+                this.result.emit({ input: this.value, items: res });
             });
+    }
+
+    onResetValue(): void {
+        this.value = '';
+        this.result.emit({ input: '', items: [] });
     }
 }

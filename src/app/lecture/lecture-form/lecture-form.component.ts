@@ -5,6 +5,7 @@ import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged, switchMap
 import { Chapter } from '../models/chapter.model';
 import { Lecture } from '../models/lecture.model';
 import { ToastrService } from 'ngx-toastr';
+import { Upload } from 'src/app/shared/interfaces/upload.interface';
 @Component({
     selector: 'ec-lecture-form',
     templateUrl: './lecture-form.component.html',
@@ -14,8 +15,17 @@ export class LectureFormComponent implements OnInit {
     lectureForm: FormGroup;
     _lecture: Lecture = new Lecture();
     errors: {};
+    fileError: string;
+    selectedFile: File | null;
     showContent: boolean = true;
     buttonText: string = 'Cacher les chapitres';
+    difficultyOptions = [
+        { value: 1, label: 'Très facile' },
+        { value: 2, label: 'Facile' },
+        { value: 3, label: 'Moyen' },
+        { value: 4, label: 'Difficile' },
+        { value: 5, label: 'Très difficile' },
+    ];
 
     toggleContent() {
         this.showContent = !this.showContent;
@@ -43,9 +53,28 @@ export class LectureFormComponent implements OnInit {
             title: ['', Validators.required],
             description: ['', Validators.required],
             duration: [0, [Validators.required, Validators.min(1)]],
+            media: [this._lecture.media],
             difficulty: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
             chapters: this.fb.array([]),
         });
+    }
+
+    // Lorsque le fichier est modifié
+    onFileSelected(event: any) {
+        this.selectedFile = event.target.files[0];
+        if (this.selectedFile) {
+            const allowedExtensions = ['.png', '.jpeg', '.jpg'];
+            const fileExtension = this.selectedFile.name.split('.').pop()!.toLowerCase();
+
+            if (allowedExtensions.includes('.' + fileExtension)) {
+                // Le fichier a une extension autorisée, vous pouvez maintenant effectuer des actions
+                // comme télécharger le fichier, valider le formulaire, etc.
+            } else {
+                // Le fichier a une extension non autorisée, affichage de message d'erreur
+                event.target.value = '';
+                this.fileError = 'Extension de fichier non autorisée.';
+            }
+        }
     }
 
     // Ajouter un paragraphe dans le tableau de lectureForm.chapters
@@ -86,24 +115,53 @@ export class LectureFormComponent implements OnInit {
         return new Chapter();
     }
 
-    onSubmit(): void {
+    async onSubmit(): Promise<void> {
         this.lectureForm.value.chapters = this._lecture.chapters;
         if (this.lectureForm.valid) {
-            const lecture = this.lectureForm.value;
-            console.log(lecture);
+            let lecture = this.lectureForm.value;
 
-            this.service.addLecture(lecture).subscribe({
-                next: (res: Lecture) => {
-                    this.showCustomNotification();
-                    this.lectureForm.reset();
-                    return;
-                },
-                error: (err: any) => {
-                    console.log(err.error.errors);
-                    this.errors = err.error.errors[0].message;
-                    return;
-                },
-            });
+            //Création de fichiers sur firebase pour les images des paragraphes
+            // for (let chapter of lecture.chapters) {
+            //     for (let paragraph of chapter.paragraphs) {
+            //         if (paragraph.media) {
+            //             const formData = new FormData();
+            //             formData.append('media', paragraph.media);
+            //             this.service.uploadImage(formData, 'lectures').subscribe({
+            //                 next: (res: Upload) => {
+            //                     paragraph.media = res.url;
+            //                 },
+            //             });
+            //         }
+            //     }
+            // }
+
+            const formData = new FormData();
+            if (this.selectedFile) {
+                formData.append('media', this.selectedFile);
+                this.service
+                    .uploadImage(formData, 'lectures')
+                    .pipe(
+                        switchMap((res: Upload) => {
+                            lecture.media = res.url;
+                            return this.service.create(lecture);
+                        })
+                    )
+                    .subscribe({
+                        next: (lecture: Lecture) => {
+                            this.removeAllChapters();
+                            this.lectureForm.reset();
+                            this.toastr.success('Cours crée');
+                        },
+                    });
+            } else {
+                this.service.create(lecture).subscribe({
+                    next: (lecture: Lecture) => {
+                        this.removeAllChapters();
+                        this.lectureForm.reset();
+                        this.toastr.success('Cours crée');
+                    },
+                });
+            }
         }
     }
 }

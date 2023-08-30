@@ -6,7 +6,9 @@
                 <th scope="col">Prénom</th>
                 <th scope="col">Pseudonyme</th>
                 <th scope="col">E-mail</th>
-                <th scope="col"></th>
+                <th scope="col">Vérifié</th>
+                <th scope="col">Rôle</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +17,8 @@
                 <td>{{ user.surname }}</td>
                 <td>{{ user.nickname }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.isEmailVerified }}</td>
+                <td>{{ user.role }}</td>
                 <td>
                     <button class="btn btn-danger" title="Supprimer" (click)="onDeleteUser(user)" *ngIf="isConnectedUser(user.id)">
                         <i class="fa-solid fa-trash"></i>
@@ -25,10 +29,10 @@
     </table>
 </div>
 
-<div class="dialog" *ngIf="showDialogBox">
+<div class="dialog centered-modal" *ngIf="showDialogBox">
     <span
         >{{ dialogText }}
-        <div id="actions" *ngIf="userToDelete">
+        <div id="actions modal" *ngIf="userToDelete">
             <button class="btn btn-primary" (click)="userToDelete.id ? confirmDelete() : ''" title="Confirmer">
                 <i class="fa-solid fa-check"></i>
             </button>

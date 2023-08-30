@@ -1,0 +1,9 @@
+.table tr :is(td, th) {
+    background-color: var(--cream-color) !important;
+}
+
+.dialog {
+    background-color: white;
+    color: var(--black-color);
+    padding: 1em;
+}

@@ -9,6 +9,7 @@ export class CreateRecipe {
     likes: number | null;
     media: string;
     isValid: boolean;
+    duration: number;
     steps: Step[];
     ingredients: RecipeIngredient[];
     comments: Comment[];
@@ -18,6 +19,7 @@ export class CreateRecipe {
         this.difficulty = 1;
         this.likes = null;
         this.isValid = false;
+        this.duration = 0;
         this.steps = [];
         this.ingredients = [];
         this.comments = [];

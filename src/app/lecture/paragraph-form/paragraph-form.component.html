@@ -11,6 +11,10 @@
                     [(ngModel)]="_paragraph.content"
                     (ngModelChange)="onContentChange($event)"
                 ></textarea>
+                <!-- <div class="mb-3">
+                    <label for="media" class="form-label">Image du cours (optionnelle)</label>
+                    <input type="file" accept=".png, .jpeg, .jpg" id="media" class="form-control" (change)="onFileSelected($event)" />
+                </div> -->
             </div>
             <button class="btn btn-secondary" (click)="onDelete()">Supprimer le paragraphe</button>
         </div>

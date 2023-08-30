@@ -1,11 +1,16 @@
-<div class="actions">
+<div *ngIf="isAdmin" class="actions">
     <button class="btn" (click)="onSelectList('users')">Utilisateurs</button
     ><button class="btn" (click)="onSelectList('recipes')">Recettes</button
     ><button class="btn" (click)="onSelectList('lectures')">Cours</button>
+    <!-- <button class="btn" (click)="onSelectList('comments')">Commentaires</button> -->
 </div>
 
-<div class="list">
+<div *ngIf="isAdmin" class="list">
     <ec-users-list [users]="users" *ngIf="showUsersList" (userIsDeleted)="onDeletedUser()"></ec-users-list>
     <ec-recipes-list [recipes]="recipes" *ngIf="showRecipesList" (actionOnRecipe)="onActionOnRecipe($event)"></ec-recipes-list>
-    <ec-lectures-list [lectures]="lectures" *ngIf="showLecturesList"></ec-lectures-list>
+    <ec-lectures-list [lectures]="lectures" *ngIf="showLecturesList" (lectureIsDeleted)="onDeletedLecture()"></ec-lectures-list>
+    <!-- <ec-comments-list [comments]="comments" *ngIf="showCommentsList" (commentIsDeleted)="onDeletedComment()"></ec-comments-list> -->
+    <!-- <ec-posts-list [posts]="posts" *ngIf="showPostsList" (postIsDeleted)="onDeletedPost()"></ec-posts-list> -->
 </div>
+
+<ec-error-redirect *ngIf="!isAdmin"></ec-error-redirect>

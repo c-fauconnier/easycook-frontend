@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { RecipesService } from 'src/app/recipe/recipes.service';
 import { Recipe } from 'src/app/shared/interfaces/recipe.interface';
 
@@ -23,7 +24,7 @@ export class RecipesListComponent {
     recipeToValidate: Recipe = {} as Recipe;
     recipeToDelete: Recipe = {} as Recipe;
 
-    constructor(private router: Router, private service: RecipesService) {}
+    constructor(private router: Router, private service: RecipesService, private toastr: ToastrService) {}
 
     onValidationChange(valid: 'all' | 'valid' | 'unvalid'): void {
         switch (valid) {
@@ -45,7 +46,7 @@ export class RecipesListComponent {
     }
 
     goToRecipe(recipeId: string): void {
-        this.router.navigateByUrl(`/recipes/${recipeId}`);
+        this.router.navigateByUrl(`/recipes/selected/${recipeId}`);
     }
 
     onValidateRecipe(recipe: Recipe): void {
@@ -68,6 +69,7 @@ export class RecipesListComponent {
                 this.onlyValidedRecipes = 'all';
                 this.recipeToValidate = {} as Recipe;
                 this.actionOnRecipe.emit('validation');
+                this.toastr.success('Recette validée !');
             },
         });
     }
@@ -80,6 +82,7 @@ export class RecipesListComponent {
                 this.onlyValidedRecipes = 'all';
                 this.recipeToDelete = {} as Recipe;
                 this.actionOnRecipe.emit('delete');
+                this.toastr.success('Recette supprimée ! ');
             },
         });
     }

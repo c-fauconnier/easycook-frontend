@@ -16,12 +16,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Title</th>
+                <th scope="col">Titre</th>
                 <th scope="col">Difficulté</th>
                 <th scope="col">Likes</th>
                 <th scope="col">Validé</th>
                 <th scope="col">Date de création</th>
-                <th scope="col"></th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -52,10 +52,10 @@
     </table>
 </div>
 
-<div class="dialog" *ngIf="showDialogBox">
+<div class="dialog centered-modal" *ngIf="showDialogBox">
     <span
         >{{ dialogText }}
-        <div id="actions" *ngIf="recipeToValidate">
+        <div id="actions modal" *ngIf="recipeToValidate">
             <button class="btn btn-primary" (click)="recipeToValidate.id ? confirmValidation() : confirmDelete()" title="Confirmer">
                 <i class="fa-solid fa-check"></i>
             </button>

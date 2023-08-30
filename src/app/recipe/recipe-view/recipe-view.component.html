@@ -1,6 +1,40 @@
-<!-- <div class="view">
-    <ec-lecture-list [lectures]="lectures"></ec-lecture-list>
-</div> -->
+<ec-search-bar
+    *ngIf="recipes.length"
+    [service]="service"
+    (result)="onResultChange($event)"
+    (isLoading)="onLoadingRecipesChange($event)"
+></ec-search-bar>
 
+<div class="d-flex justify-content-center">
+    <div *ngIf="isLoading" class="spinner-grow text-primary mb-3 mt-5" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div *ngIf="noResult" class="mt-5">
+        <h2>Mince, aucun résultat pour cette recherche...</h2>
+    </div>
+</div>
+
+<ec-recipe-list [recipes]="filteredRecipes.length ? filteredRecipes : recipes" *ngIf="!isLoading && !noResult"></ec-recipe-list>
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="!recipes.length" class="mt-5"><h2>Mince, on dirait qu'il n'y a pas de recettes...</h2></div>
+</div>
+
+<ec-control-nav
+    *ngIf="recipes.length"
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    (onPreviousClick)="previousPage()"
+    (onNextClick)="nextPage()"
+    (onInputValidate)="inputPage($event)"
+></ec-control-nav>
 <!-- Bouton flottant "Créer une recette" -->
-<ec-button-create *ngIf="isConnected" [url]="url" [text]="text"></ec-button-create>
+<div class="position-fixed d-flex justify-content-end fixed-bottom p-3">
+    <button class="btn btn-warning" *ngIf="isConnected && !isVerified && !isAdmin; else verified" disabled>
+        Vérifiez votre adresse mail<br />
+        pour pouvoir poster du contenu
+    </button>
+</div>
+<ng-template #verified>
+    <ec-button-create *ngIf="isConnected" [url]="url" [text]="text"></ec-button-create>
+</ng-template>

@@ -1,0 +1,49 @@
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img *ngIf="recipe.media" src="{{ recipe.media }}" class="img-fluid mb-3" alt="Image de la recette" />
+                    <button
+                        *ngIf="isConnected && !isFavorite"
+                        class="btn btn-outline-warning btn-favorite"
+                        (click)="addToFavorites()"
+                        [disabled]="isLoading"
+                    >
+                        <i class="far fa-star"></i> Ajouter aux favoris
+                    </button>
+                    <button
+                        *ngIf="isConnected && isFavorite"
+                        class="btn btn-outline-danger btn-favorite"
+                        (click)="deleteFromMyFavorites()"
+                        [disabled]="isLoading"
+                    >
+                        <i class="fa-regular fa-square-minus"></i> Retirer des favoris
+                    </button>
+                </div>
+                <div class="col-md-8">
+                    <h1>{{ recipe.title }}</h1>
+                    <p class="text-muted">Difficulté : {{ recipe.difficulty }} <i class="bi bi-fire"></i></p>
+                    <p class="text-muted">Durée : {{ recipe.duration }} minutes <i class="bi bi-stopwatch"></i></p>
+                    <p class="text-muted">Publiée le : {{ recipe.createdAt | date }}</p>
+                    <hr />
+                    <h4>Description :</h4>
+                    <p>{{ recipe.description }}</p>
+                    <p><i class="bi bi-person"></i> Réalisée par: {{ recipe.user?.nickname || 'utilisateur inexistant' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h3 class="card-title"><b>Étapes</b></h3>
+            <ol>
+                <li *ngFor="let step of recipe.steps">
+                    <h3>{{ step.index }}) {{ step.title }}</h3>
+                    <p>{{ step.explanation }}</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

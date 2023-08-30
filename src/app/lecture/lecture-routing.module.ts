@@ -6,16 +6,18 @@ import { LectureDetailsComponent } from './lecture-details/lecture-details.compo
 
 const routes: Routes = [
     {
-        path: '',
-        component: LectureViewComponent,
-    },
-    {
         path: 'form',
         component: LectureFormComponent,
     },
+    { path: 'selected/:id', component: LectureDetailsComponent },
     {
-        path: ':id',
-        component: LectureDetailsComponent,
+        path: '',
+        redirectTo: '/lectures/1',
+        pathMatch: 'full',
+    },
+    {
+        path: ':index',
+        component: LectureViewComponent,
     },
 ];
 

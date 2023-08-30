@@ -1,5 +1,4 @@
-<div class="container mt-5">
-    <p>{{ myAccount }}</p>
+<div class="container my-5">
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -9,79 +8,134 @@
                     alt="Image Utilisateur"
                     style="max-height: 250px; object-fit: contain"
                 />
-                <div class="card-body">
+                <div class="card-body mx-auto">
                     <h5 class="card-title">{{ user.nickname }}</h5>
                     <p class="card-text">
                         <i>A rejoint EasyCook le {{ user.createdAt | date }}</i>
                     </p>
+                </div>
+                <!-- Bouton de suppression de compte -->
+                <div class="card-body mx-auto">
+                    <button class="btn btn-danger" (click)="deleteAccount()">Supprimer le compte</button>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Informations Personnelles</h4>
+                    <h3 class="card-title">Informations Personnelles</h3>
                     <ul class="list-group">
-                        <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
                         <li class="list-group-item"><strong>Nom:</strong> {{ user.name }}</li>
                         <li class="list-group-item"><strong>Prénom:</strong> {{ user.surname }}</li>
+                        <li class="list-group-item"><strong>Pseudo:</strong> {{ user.nickname }}</li>
+                        <li class="list-group-item">
+                            <strong><i class="bi bi-envelope-at"></i> Email:</strong> {{ user.email }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong><i class="bi bi-envelope-check"></i> Mail vérifié:</strong
+                            ><span
+                                [ngClass]="{ 'text-success': user.isEmailVerified === true, 'text-danger': user.isEmailVerified === false }"
+                            >
+                                <i class="fas fa-check-circle" *ngIf="user.isEmailVerified"></i>
+                                <i class="fas fa-times-circle" *ngIf="!user.isEmailVerified"></i
+                            ></span>
+                        </li>
                         <!-- Ajoute d'autres informations ici -->
                     </ul>
+                    <div class="alert alert-danger" *ngIf="!user.isEmailVerified">
+                        <p>ATTENTION : Votre mail n'est pas vérifié. Vous n'aurez pas l'opportunité de créer du contenu.</p>
+                        <button class="btn btn-primary" (click)="resendVerificationEmail()" [disabled]="buttonClicked">
+                            Renvoyer un mail de confirmation
+                        </button>
+                    </div>
+                    <div class="card-body mx-auto">
+                        <button class="btn btn-primary" (click)="modifyAccount()">Modifier mes informations</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <ng-template #noRecipes><p>Vous n'avez pas de recettes en favoris</p></ng-template>
+    <ng-template #noRecipes><p>Vous n'avez pas créé de recettes.</p></ng-template>
+    <ng-template #nofavoriteRecipes><p>Vous n'avez pas de recettes en favoris</p></ng-template>
     <ng-template #noComments><p>Vous n'avez pas écrit de commentaires.</p></ng-template>
-    <ng-template #noLectures><p>Vous ne suivez aucun cours.</p></ng-template>
-    <!-- Tableau Cours Suivis -->
+    <ng-template #nofavoriteLectures><p>Vous ne suivez aucun cours.</p></ng-template>
+    <!-- Tableau Cours suivis -->
     <div class="card mt-3">
         <div class="card-body">
-            <h4 class="card-title">Cours Suivis:</h4>
-            <table class="table" *ngIf="user?.lectures; else noLectures">
+            <h4 class="card-title">Derniers cours suivis:</h4>
+            <table class="table" *ngIf="user.favoriteLectures && user.favoriteLectures.length != 0; else nofavoriteLectures">
                 <thead>
                     <tr>
                         <th>Nom du Cours</th>
-                        <th>Difficulté</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let recipe of user?.lectures">
-                        <td>{{ recipe.title }}/td></td>
-                        <td>{{ recipe.difficulty }}</td>
+                    <tr *ngFor="let favorite of user.favoriteLectures.slice(0, 5)">
+                        <td>
+                            <a routerLink="/lectures/selected/{{ favorite.lecture.id }}">{{ favorite.lecture.title }}</a>
+                        </td>
                     </tr>
                 </tbody>
-                <a href="#">Voir tous les cours <i class="bi bi-arrow-right"></i></a>
+                <a *ngIf="user.favoriteLectures && user.favoriteLectures.length != 0" routerLink="/profile/{{ user.id }}/favoritesLectures"
+                    >Voir tous les cours <i class="bi bi-arrow-right"></i
+                ></a>
             </table>
         </div>
     </div>
-    <!-- Tableau Recettes Suivies -->
+    <!-- Tableau Recettes suivies -->
     <div class="card mt-3">
         <div class="card-body">
-            <h4 class="card-title">Recettes Suivies:</h4>
-            <table class="table" *ngIf="(user?.recipes)!.length > 0; else noRecipes">
+            <h4 class="card-title">Dernières recettes suivies:</h4>
+            <table class="table" *ngIf="user.favoriteRecipes && user.favoriteRecipes.length != 0; else nofavoriteRecipes">
                 <thead>
                     <tr>
                         <th>Nom de la recette</th>
-                        <th>Difficulté</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let recipe of user.recipes">
-                        <td>{{ recipe.title }}/td></td>
-                        <td>{{ recipe.difficulty }}</td>
+                    <tr *ngFor="let favorite of user.favoriteRecipes.slice(0, 5)">
+                        <td>
+                            <a routerLink="/recipes/selected/{{ favorite.recipe.id }}">{{ favorite.recipe.title }}</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <a>Voir toutes les recettes <i class="bi bi-arrow-right"></i></a>
+            <a *ngIf="user.favoriteRecipes && user.favoriteRecipes.length != 0" routerLink="/profile/{{ user.id }}/favoritesRecipes"
+                >Voir toutes les recettes suivies <i class="bi bi-arrow-right"></i
+            ></a>
+        </div>
+    </div>
+    <!-- Tableau Recettes créées -->
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4 class="card-title">Dernières recettes créées:</h4>
+            <table class="table" *ngIf="user.recipes && user.recipes.length != 0; else noRecipes">
+                <thead>
+                    <tr>
+                        <th>Nom de la recette</th>
+                        <th>Date de création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recipe of user.recipes.slice(0, 5)">
+                        <td>
+                            <a routerLink="/recipes/selected/{{ recipe.id }}">{{ recipe.title }}</a>
+                        </td>
+                        <td>{{ recipe.createdAt | date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a *ngIf="user.recipes && user.recipes.length != 0" routerLink="/profile/{{ user.id }}/recipes"
+                >Voir toutes les recettes créées <i class="bi bi-arrow-right"></i
+            ></a>
         </div>
     </div>
     <!-- Tableau Commentaires Récents -->
-    <div class="card my-3">
+    <!-- <div class="card my-3">
         <div class="card-body">
-            <h4 class="card-title">Derniers Commentaires</h4>
-            <table class="table" *ngIf="(user?.comments)!.length > 0; else noComments">
+            <h4 class="card-title">Derniers commentaires</h4>
+            <table class="table" *ngIf="user?.comments; else noComments">
                 <thead>
                     <tr>
                         <th>Commentaire</th>
@@ -99,5 +153,5 @@
                 <a href="#">Voir tous les commentaires <i class="bi bi-arrow-right"></i></a>
             </table>
         </div>
-    </div>
+    </div> -->
 </div>

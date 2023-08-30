@@ -50,7 +50,7 @@ const cookieConfig: NgcCookieConsentConfig = {
         FormsModule,
         ToastrModule.forRoot(),
         CoreModule,
-        NgcCookieConsentModule.forRoot(cookieConfig),
+        //NgcCookieConsentModule.forRoot(cookieConfig),
     ],
     providers: [
         {

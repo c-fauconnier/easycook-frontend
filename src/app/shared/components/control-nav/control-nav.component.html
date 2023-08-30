@@ -1,0 +1,22 @@
+<!-- Navigation Div -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-auto d-flex align-items-center">
+            <button [disabled]="currentPage === 1" class="btn btn-light me-2" (click)="Previous()">
+                <i class="fas fa-chevron-left"></i> Page précédente
+            </button>
+            <input
+                type="number"
+                class="form-control"
+                placeholder="Aller à la page..."
+                [(ngModel)]="currentPage"
+                (input)="handleInput($event)"
+                (keydown.enter)="validateAndNavigate($event)"
+            />
+            <span class="input-group-text">{{ currentPage }} sur {{ totalPages }}</span>
+            <button [disabled]="currentPage === totalPages || totalPages === 0" class="btn btn-light ms-2" (click)="Next()">
+                Page suivante <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

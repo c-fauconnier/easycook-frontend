@@ -2,6 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from 'src/app/shared/interfaces/recipe.interface';
 import { ProfileService } from '../profile.service';
 import { User } from 'src/app/shared/interfaces/user.interface';
+import { FavoriteRecipes } from 'src/app/shared/interfaces/favorite-recipes.interface';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs';
+import { RecipesService } from 'src/app/recipe/recipes.service';
 
 @Component({
     selector: 'ec-profile-recipes',
@@ -9,32 +15,40 @@ import { User } from 'src/app/shared/interfaces/user.interface';
     styleUrls: ['./profile-recipes.component.scss'],
 })
 export class ProfileRecipesComponent implements OnInit {
-    constructor(private service: ProfileService) {}
-    user: User = {} as User;
-    recipes: Recipe[] = [];
-    currentPage: number = 1;
-    itemsPerPage: number = 10;
-    totalPages: number;
+    recipes: Recipe[];
+    userId: string = this.auth.user.id;
+
+    constructor(
+        private service: ProfileService,
+        private auth: AuthService,
+        private toastr: ToastrService,
+        private recipesService: RecipesService
+    ) {}
 
     ngOnInit(): void {
-        this.service.userData$.subscribe((user) => {
-            this.user = user;
-            this.recipes = user.recipes;
+        this.service.getUserRecipes().subscribe({
+            next: (res: Recipe[]) => {
+                this.recipes = res;
+            },
         });
-        this.totalPages = Math.ceil(this.recipes.length / this.itemsPerPage);
     }
 
-    getPaginatedRecipes(): Recipe[] {
-        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-        const endIndex = startIndex + this.itemsPerPage;
-        return this.recipes.slice(startIndex, endIndex);
-    }
-
-    onPageChange(pageNumber: number): void {
-        this.currentPage = pageNumber;
-    }
-
-    totalPagesArray(): number[] {
-        return Array.from({ length: this.totalPages }, (_, index) => index + 1);
+    deleteRecipe(recipeId: string) {
+        const userConfirm = confirm('Voulez-vous supprimer cette recette ? Cette action est irréversible');
+        if (userConfirm) {
+            this.recipesService
+                .delete(recipeId as string)
+                .pipe(
+                    switchMap((res) => {
+                        this.toastr.success('Recette supprimée');
+                        return this.service.getUserRecipes();
+                    })
+                )
+                .subscribe({
+                    next: (res: Recipe[]) => {
+                        this.recipes = res;
+                    },
+                });
+        }
     }
 }

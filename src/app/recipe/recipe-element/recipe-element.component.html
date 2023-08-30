@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <h1 class="card-title">{{ recipe.title }}</h1>
+                <p class="card-text">{{ recipe.description }}</p>
+                <p class="card-text">
+                    <small class="text-muted">Difficulté: {{ recipe.difficulty }}<i class="bi bi-fire"></i></small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">Durée : {{ recipe.duration }} minutes <i class="bi bi-stopwatch"></i></small>
+                </p>
+                <a routerLink="/recipes/selected/{{ recipe.id }}" class="btn btn-primary">Voir cette recette</a>
+            </div>
+            <div class="col-md-4 img-wrapper">
+                <img *ngIf="recipe.media" src="{{ recipe.media }}" class="img-fluid" alt="Image de la recette" />
+            </div>
+        </div>
+    </div>
+</div>

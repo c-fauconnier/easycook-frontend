@@ -7,6 +7,7 @@
                 <th scope="col">Durée</th>
                 <th scope="col">Difficulté</th>
                 <th scope="col">Note</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -16,15 +17,30 @@
                 <td>{{ lecture.duration }}</td>
                 <td>{{ lecture.difficulty }}</td>
                 <td>{{ lecture.rating }} / 5</td>
-                <td>
-                    <button class="btn btn-danger" title="Supprimer">
+                <td id="actions">
+                    <button class="btn btn-danger" title="Supprimer" (click)="onDeleteLecture(lecture)">
                         <i class="fa-solid fa-trash"></i>
+                    </button>
+                    <button class="btn btn-primary" title="Aller vers la recette" (click)="goToLecture(lecture.id)">
+                        <i class="fa-solid fa-location-arrow"></i>
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
-
+    <div class="dialog centered-modal" *ngIf="showDialogBox">
+        <span
+            >{{ dialogText }}
+            <div id="actions modal" *ngIf="lectureToDelete">
+                <button class="btn btn-primary" (click)="lectureToDelete.id ? confirmDelete() : ''" title="Confirmer">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+                <button class="btn btn-danger" title="Annuler" (click)="showDialogBox = false">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+        </span>
+    </div>
     <div *ngIf="!lectures.length">
         <p>Aucun cours pour le moment</p>
     </div>

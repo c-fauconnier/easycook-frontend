@@ -23,6 +23,10 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { CguComponent } from './components/cgu/cgu.component';
 import { ButtonCreateComponent } from './components/button-create/button-create.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ControlNavComponent } from './components/control-nav/control-nav.component';
+import { SafePipe } from './pipes/safe.pipe';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +39,9 @@ import { ButtonCreateComponent } from './components/button-create/button-create.
         FormErrorComponent,
         CguComponent,
         ButtonCreateComponent,
+        ControlNavComponent,
+        SafePipe,
+        ContactFormComponent,
     ],
     imports: [
         CommonModule,
@@ -53,6 +60,7 @@ import { ButtonCreateComponent } from './components/button-create/button-create.
         MatToolbarModule,
         MatProgressSpinnerModule,
         FormsModule,
+        MatPaginatorModule,
     ],
     exports: [
         ReactiveFormsModule,
@@ -76,6 +84,9 @@ import { ButtonCreateComponent } from './components/button-create/button-create.
         FormErrorComponent,
         ButtonCreateComponent,
         FormsModule,
+        MatPaginatorModule,
+        ControlNavComponent,
+        SafePipe,
     ],
 })
 export class SharedModule {}

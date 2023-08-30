@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DecodedToken } from 'src/app/shared/interfaces/decoded-token.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
@@ -15,7 +16,7 @@ export class UsersListComponent implements OnInit {
 
     // Correspond à l'utilisateur connecté
     connectedUser: DecodedToken = {} as DecodedToken;
-    constructor(private service: UsersService, private authService: AuthService) {}
+    constructor(private service: UsersService, private authService: AuthService, private toastr: ToastrService) {}
 
     ngOnInit(): void {
         this.connectedUser = this.authService.user as DecodedToken;
@@ -37,6 +38,7 @@ export class UsersListComponent implements OnInit {
                 this.showDialogBox = false;
                 this.userToDelete = {} as User;
                 this.userIsDeleted.emit();
+                this.toastr.success('Utilisateur supprimé !');
             },
         });
     }

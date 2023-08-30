@@ -19,7 +19,21 @@
 
                 <div class="mb-3">
                     <label for="difficulty" class="form-label">Difficulté</label>
-                    <input type="number" id="difficulty" class="form-control" min="1" max="5" formControlName="difficulty" />
+                    <select id="difficulty" class="form-select" formControlName="difficulty">
+                        <option *ngFor="let difficulty of difficultyOptions" [value]="difficulty.value">{{ difficulty.label }}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="media" class="form-label">Image du cours (optionnelle)</label>
+                    <input
+                        type="file"
+                        accept=".png, .jpeg, .jpg"
+                        id="media"
+                        class="form-control"
+                        formControlName="media"
+                        (change)="onFileSelected($event)"
+                    />
                 </div>
 
                 <div class="mb-3 d-flex justify-content-between">

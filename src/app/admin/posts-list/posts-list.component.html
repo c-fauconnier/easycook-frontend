@@ -1,0 +1,45 @@
+<!-- <div class="posts">
+    <table class="table" *ngIf="posts.length">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Difficulté</th>
+                <th scope="col">Note</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of posts">
+                <td>{{ post.title }}</td>
+                <td>{{ post.description }}</td>
+                <td>{{ post.duration }}</td>
+                <td>{{ post.difficulty }}</td>
+                <td>{{ post.rating }} / 5</td>
+                <td id="actions">
+                    <button class="btn btn-danger" title="Supprimer" (click)="onDeletePost(post)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="dialog" *ngIf="showDialogBox">
+        <span
+            >{{ dialogText }}
+            <div id="actions" *ngIf="postToDelete">
+                <button class="btn btn-primary" (click)="postToDelete.id ? confirmDelete() : ''" title="Confirmer">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+                <button class="btn btn-danger" title="Annuler" (click)="showDialogBox = false">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
+        </span>
+    </div>
+
+    <div *ngIf="!posts.length">
+        <p>Aucun cours pour le moment</p>
+    </div>
+</div> -->

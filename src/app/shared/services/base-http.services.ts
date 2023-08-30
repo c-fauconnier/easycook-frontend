@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Upload } from '../interfaces/upload.interface';
 import { environment } from 'src/app/environments/environment.prod';
+import { Index } from '../interfaces/index.interface';
 
 @Injectable()
 export abstract class BaseService<T> {
@@ -23,6 +24,10 @@ export abstract class BaseService<T> {
         return this.http.get<T>(`${this.baseApiURL}/${this.endPoint}/${id}`);
     }
 
+    getByIndex(page: number, limit: number): Observable<Index> {
+        return this.http.get<Index>(`${this.baseApiURL}/${this.endPoint}/index?page=${page}&limit=${limit}`);
+    }
+
     update(id: string, dto: any): Observable<unknown> {
         return this.http.put<unknown>(`${this.baseApiURL}/${this.endPoint}/${id}`, dto);
     }
@@ -31,8 +36,8 @@ export abstract class BaseService<T> {
         return this.http.delete<unknown>(`${this.baseApiURL}/${this.endPoint}/${id}`);
     }
 
-    getByKeyName(key: string, name: string): Observable<T[]> {
-        return this.http.get<T[]>(`${this.baseApiURL}/${this.endPoint}?key=${key}&name=${name}`);
+    getByKeyName(key: string, value: string): Observable<T[]> {
+        return this.http.get<T[]>(`${this.baseApiURL}/${this.endPoint}/search/params`, { params: { key: key, value: value } });
     }
     upload(media: FormData, collection: string): Observable<Upload> {
         return this.http.post<Upload>(`${this.baseApiURL}/files/upload?collection=${collection}`, media);

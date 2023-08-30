@@ -1,0 +1,24 @@
+<div class="card m-5">
+    <div class="card-body">
+        <a routerLink="/profile/{{ userId }}" class="btn btn-primary mb-3">
+            <i class="fa fa-arrow-left mr-2"></i> Retourner à mon profil
+        </a>
+        <h4 class="card-title">Cours auxquels je suis inscrit:</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom du cours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let favorite of favoriteLectures">
+                    <td>
+                        <a routerLink="/lectures/selected/{{ favorite.lecture.id }}">{{ favorite.lecture.title }}</a>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,4 +1,29 @@
 .table tr :is(td, th) {
     background-color: var(--cream-color) !important;
-    
+}
+
+.dialog {
+    background-color: white;
+    color: var(--black-color);
+    padding: 1em;
+    border: 1px solid red;
+}
+
+.centered-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+#actions {
+    display: flex;
+    gap: 0.5em;
+    //justify-content: center;
+    align-items: center;
+}
+.modal {
+    justify-content: center;
 }
