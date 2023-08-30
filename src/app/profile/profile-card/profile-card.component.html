@@ -77,10 +77,10 @@
                         </td>
                     </tr>
                 </tbody>
-                <a *ngIf="user.favoriteLectures && user.favoriteLectures.length != 0" routerLink="/profile/{{ user.id }}/favoritesLectures"
-                    >Voir tous les cours <i class="bi bi-arrow-right"></i
-                ></a>
             </table>
+            <a *ngIf="user.favoriteLectures && user.favoriteLectures.length != 0" routerLink="/profile/{{ user.id }}/favoritesLectures"
+                >Voir tous les cours <i class="bi bi-arrow-right"></i
+            ></a>
         </div>
     </div>
     <!-- Tableau Recettes suivies -->
